@@ -1,8 +1,5 @@
 package com.xiaoazhai.domain.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.xiaoazhai.entity.BaseEntity;
 import com.xiaoazhai.repository.entity.ProductCategory;
 import lombok.Data;

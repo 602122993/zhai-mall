@@ -4,14 +4,13 @@ import com.xiaoazhai.util.BeanUtil;
 
 /**
  * @author jiangyun
- * @date 2021/9/10  22:50
+ * @date 2021/9/19  21:05
  **/
-public interface BaseEntity<T> {
+public interface BaseDO<T> {
 
-    default T generalDO(Class<T> clazz) {
+    default T generalEntity(Class<T> clazz) {
         return BeanUtil.copyPropertiesIgnoreNullValue(this, clazz);
     }
 
-    T generalDO();
-
+    T generalEntity();
 }

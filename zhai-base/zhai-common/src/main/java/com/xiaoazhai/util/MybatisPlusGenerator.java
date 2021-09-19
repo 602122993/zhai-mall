@@ -43,9 +43,12 @@ public class MybatisPlusGenerator {
                 .setEntityLombokModel(true)
                 .setNaming(NamingStrategy.underline_to_camel)// 数据库表映射到实体的命名策略
                 .setEntityTableFieldAnnotationEnable(true)
-//                .setTablePrefix("pms_","cms","ums","sms"); //指定扫描表的前缀
+                .setTablePrefix("zhai") //指定扫描表的前缀
 //                .setFieldPrefix(fieldPrefix);//指定字段前缀
-                .setInclude("product_category");
+                .setInclude("zhai_resource" ,
+                        "zhai_role" ,
+                        "zhai_role_menu" ,
+                        "zhai_role_resource");
         InjectionConfig injectionConfig = new InjectionConfig() {
             @Override
             public void initMap() {
@@ -57,6 +60,7 @@ public class MybatisPlusGenerator {
         pkConfig.setParent("com.xiaoazhai")
                 .setMapper("repository.mapper")//dao
                 .setService("repository.service")//servcie
+                .setServiceImpl("repository.service.impl")
                 .setController("controller")//controller
                 .setEntity("domain.entity")
                 .setXml("mapping");//mapper.xml

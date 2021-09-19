@@ -1,4 +1,4 @@
-package com.xiaoazhai.service;
+package com.xiaoazhai.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;

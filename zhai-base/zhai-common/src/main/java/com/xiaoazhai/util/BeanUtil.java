@@ -1,11 +1,16 @@
 package com.xiaoazhai.util;
 
 import cn.hutool.core.bean.copier.CopyOptions;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.xiaoazhai.entity.BaseDO;
+import com.xiaoazhai.entity.BaseEntity;
 import com.xiaoazhai.exception.GlobalException;
 import lombok.SneakyThrows;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 扩展工具
@@ -66,6 +71,18 @@ public class BeanUtil extends cn.hutool.core.bean.BeanUtil {
             data.add(target);
         }
         return data;
+    }
+
+
+    public static <T> IPage copyPage(Page<? extends BaseDO> page, Class<T> clazz) {
+        return page.convert(obj -> obj.generalEntity(clazz));
+    }
+
+    public static <T> T doToEntity(BaseDO<T> baseDO, Class<T> clazz) {
+        if (baseDO == null) {
+            return null;
+        }
+        return baseDO.generalEntity(clazz);
     }
 
 

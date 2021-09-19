@@ -1,7 +1,7 @@
-package com.xiaoazhai.service;
+package com.xiaoazhai.repository.service.impl;
 
-import com.xiaoazhai.entity.SpringUser;
-import com.xiaoazhai.entity.UserDTO;
+import com.xiaoazhai.auth.dto.SpringUser;
+import com.xiaoazhai.auth.dto.UserDTO;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

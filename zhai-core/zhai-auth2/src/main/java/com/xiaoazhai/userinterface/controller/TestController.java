@@ -1,4 +1,4 @@
-package com.xiaoazhai.controller;
+package com.xiaoazhai.userinterface.controller;
 
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -22,10 +22,6 @@ import java.util.Map;
 @RestController
 public class TestController {
 
-    @RequestMapping("hello")
-    public String test() {
-        return "hello";
-    }
 
     @RequestMapping(value = "/userinfo", produces = "application/json")
     public Map<String, Object> user(OAuth2Authentication user) {
