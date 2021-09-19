@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project [
+        <!ELEMENT project (modelVersion|packaging|modules|parent|groupId|artifactId|version|name|description|properties|dependencies|dependencyManagement|build)*>
+        <!ATTLIST project
+                xmlns CDATA #REQUIRED
+                xmlns:xsi CDATA #REQUIRED
+                xsi:schemaLocation CDATA #REQUIRED>
+        <!ELEMENT modelVersion (#PCDATA)>
+        <!ELEMENT packaging (#PCDATA)>
+        <!ELEMENT modules (module)*>
+        <!ELEMENT module (#PCDATA)>
+        <!ELEMENT parent (groupId|artifactId|version|relativePath)*>
+        <!ELEMENT groupId (#PCDATA)>
+        <!ELEMENT artifactId (#PCDATA)>
+        <!ELEMENT version (#PCDATA)>
+        <!ELEMENT relativePath (#PCDATA)>
+        <!ELEMENT name (#PCDATA)>
+        <!ELEMENT description (#PCDATA)>
+        <!ELEMENT properties (java.version|mybatis-plus.version|druid-spring-boot.version|hutool.version|spring-boot.version|protostuff.version|fastjson.version)*>
+        <!ELEMENT java.version (#PCDATA)>
+        <!ELEMENT mybatis-plus.version (#PCDATA)>
+        <!ELEMENT druid-spring-boot.version (#PCDATA)>
+        <!ELEMENT hutool.version (#PCDATA)>
+        <!ELEMENT spring-boot.version (#PCDATA)>
+        <!ELEMENT protostuff.version (#PCDATA)>
+        <!ELEMENT fastjson.version (#PCDATA)>
+        <!ELEMENT dependencies (dependency)*>
+        <!ELEMENT dependency (groupId|artifactId|version|exclusions|optional|scope|type)*>
+        <!ELEMENT exclusions (exclusion)*>
+        <!ELEMENT exclusion (groupId|artifactId)*>
+        <!ELEMENT optional (#PCDATA)>
+        <!ELEMENT scope (#PCDATA)>
+        <!ELEMENT dependencyManagement (dependencies)*>
+        <!ELEMENT type (#PCDATA)>
+        <!ELEMENT build (plugins)*>
+        <!ELEMENT plugins (plugin)*>
+        <!ELEMENT plugin (groupId|artifactId)*>
+        ]>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+    <modules>
+        <module>zhai-base</module>
+        <module>zhai-gateway</module>
+        <module>zhai-core</module>
+    </modules>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.5.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.xiaoazhai</groupId>
+    <artifactId>zhai-mall</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>zhai-mall</name>
+    <description>Demo project for Spring Boot</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <mybatis-plus.version>3.3.2</mybatis-plus.version>
+        <druid-spring-boot.version>1.1.18</druid-spring-boot.version>
+        <hutool.version>5.3.7</hutool.version>
+        <spring-boot.version>2.3.1.RELEASE</spring-boot.version>
+        <protostuff.version>1.6.0</protostuff.version>
+        <fastjson.version>1.2.47</fastjson.version>
+    </properties>
+
+    <dependencies>
+
+
+
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
+
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+            <exclusions>
+                <!-- 排除自带的logback依赖 -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-gateway -->
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+
+            </exclusions>
+        </dependency>
+
+    </dependencies>
+
+    <dependencyManagement>
+
+        <dependencies>
+
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>2.2.2.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Hoxton.SR3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.protostuff</groupId>
+                <artifactId>protostuff-core</artifactId>
+                <version>${protostuff.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.protostuff</groupId>
+                <artifactId>protostuff-runtime</artifactId>
+                <version>${protostuff.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-log4j2</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
