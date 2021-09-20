@@ -6,9 +6,15 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.xiaoazhai.domain.entity.RoleEntity;
 import com.xiaoazhai.enums.CommonStatusEnum;
 import com.xiaoazhai.repository.entity.Role;
+import com.xiaoazhai.repository.entity.RoleMenu;
+import com.xiaoazhai.repository.entity.RolePermission;
+import com.xiaoazhai.repository.service.RoleMenuService;
+import com.xiaoazhai.repository.service.RolePermissionService;
 import com.xiaoazhai.repository.service.RoleService;
 import com.xiaoazhai.result.ReturnMessage;
 import com.xiaoazhai.userinterface.controller.RoleController;
+import com.xiaoazhai.userinterface.request.DistributionMenuRequest;
+import com.xiaoazhai.userinterface.request.DistributionPermissionRequest;
 import com.xiaoazhai.userinterface.request.RoleRequest;
 import com.xiaoazhai.userinterface.request.QueryRoleRequest;
 import org.junit.FixMethodOrder;
@@ -21,9 +27,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author jiangyun
@@ -41,8 +49,13 @@ public class RoleTest {
     @Resource
     private RoleService roleService;
 
+    @Resource
+    private RoleMenuService roleMenuService;
+    @Resource
+    private RolePermissionService rolePermissionService;
+
     @Test
-    public void test1_addRole() {
+    public void testa_addRole() {
         RoleRequest addRoleRequest = new RoleRequest();
         addRoleRequest.setDescription("测试描述");
         addRoleRequest.setName("测试昵称");
@@ -53,7 +66,7 @@ public class RoleTest {
     }
 
     @Test
-    public void test2_roleList() {
+    public void testb_roleList() {
         QueryRoleRequest queryRoleRequest = new QueryRoleRequest();
         queryRoleRequest.setRoleName("测试");
         queryRoleRequest.setCurrent(1);
@@ -64,12 +77,12 @@ public class RoleTest {
     }
 
     @Test
-    public void test3_getRoleById() {
+    public void testc_getRoleById() {
         Assert.notNull(roleController.queryRoleById(roleId).getData());
     }
 
     @Test
-    public void test4_updateRole() {
+    public void testd_updateRole() {
         RoleRequest addRoleRequest = new RoleRequest();
         addRoleRequest.setId(roleId);
         addRoleRequest.setDescription("测试修改描述");
@@ -85,11 +98,48 @@ public class RoleTest {
         );
     }
 
+
     @Test
-    public void test5_removeRole() {
+    public void teste_addRoleMenu() {
+        DistributionMenuRequest request = new DistributionMenuRequest();
+        request.setRoleId(roleId);
+        request.setMenuIdList(Arrays.asList(1L, 2L, 3L));
+        roleController.distributionMenu(request);
+        List<Long> result = roleMenuService.list(Wrappers.<RoleMenu>lambdaQuery()
+                .eq(RoleMenu::getRoleId, roleId))
+                .stream()
+                .collect(Collectors.groupingBy(RoleMenu::getRoleId))
+                .get(roleId)
+                .stream()
+                .map(RoleMenu::getMenuId)
+                .sorted()
+                .collect(Collectors.toList());
+        Assert.isTrue(result.equals(request.getMenuIdList()));
+    }
+
+    @Test
+    public void testf_addRolePermission() {
+        DistributionPermissionRequest request = new DistributionPermissionRequest();
+        request.setRoleId(roleId);
+        request.setPermissionIdList(Arrays.asList(3L, 4L, 5L));
+        roleController.distributionPermission(request);
+        List<Long> result = rolePermissionService.list(Wrappers.<RolePermission>lambdaQuery()
+                .eq(RolePermission::getRoleId, roleId))
+                .stream()
+                .collect(Collectors.groupingBy(RolePermission::getRoleId))
+                .get(roleId)
+                .stream()
+                .map(RolePermission::getPermissionId)
+                .sorted()
+                .collect(Collectors.toList());
+        Assert.isTrue(result.equals(request.getPermissionIdList()));
+    }
+
+
+    @Test
+    public void testz_removeRole() {
         roleController.deleteRole(roleId);
         Assert.isNull(roleController.queryRoleById(roleId).getData());
     }
-
 
 }

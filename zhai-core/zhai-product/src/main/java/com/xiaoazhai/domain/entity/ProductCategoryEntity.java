@@ -60,7 +60,7 @@ public class ProductCategoryEntity implements BaseEntity<ProductCategory> {
 
 
     @Override
-    public ProductCategory generalDO() {
-        return generalDO(ProductCategory.class);
+    public ProductCategory  generateDO() {
+        return  generateDO(ProductCategory.class);
     }
 }

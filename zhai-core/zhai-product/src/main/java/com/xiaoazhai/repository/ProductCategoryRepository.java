@@ -22,8 +22,8 @@ public class ProductCategoryRepository {
     private ProductCategoryService productCategoryService;
 
 
-    public void saveProductCategory(ProductCategoryEntity generalEntity) {
-        productCategoryService.save(generalEntity.generalDO());
+    public void saveProductCategory(ProductCategoryEntity  generateEntity) {
+        productCategoryService.save( generateEntity. generateDO());
     }
 
     public IPage<ProductCategory> queryProductCategory(Page<ProductCategory> page, String id) {

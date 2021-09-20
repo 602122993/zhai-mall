@@ -1,6 +1,6 @@
 package com.xiaoazhai.repository.service;
 
-import com.xiaoazhai.repository.entity.Resource;
+import com.xiaoazhai.repository.entity.RolePermission;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author zhai
  * @since 2021-09-19
  */
-public interface ResourceService extends IService<Resource> {
+public interface RolePermissionService extends IService<RolePermission> {
 
+    void removeByRoleId(Long roleId);
 }

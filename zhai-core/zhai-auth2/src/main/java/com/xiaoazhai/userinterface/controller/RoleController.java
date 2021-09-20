@@ -2,6 +2,8 @@ package com.xiaoazhai.userinterface.controller;
 
 import com.xiaoazhai.repository.RoleRepository;
 import com.xiaoazhai.result.ReturnMessage;
+import com.xiaoazhai.userinterface.request.DistributionMenuRequest;
+import com.xiaoazhai.userinterface.request.DistributionPermissionRequest;
 import com.xiaoazhai.userinterface.request.RoleRequest;
 import com.xiaoazhai.userinterface.request.QueryRoleRequest;
 import org.springframework.web.bind.annotation.*;
@@ -26,13 +28,13 @@ public class RoleController {
 
     @PostMapping("save")
     public ReturnMessage saveRole(RoleRequest addRoleRequest) {
-        roleRepository.saveRole(addRoleRequest.generalEntity());
+        roleRepository.saveRole(addRoleRequest.generateEntity());
         return ReturnMessage.success();
     }
 
     @PostMapping("update")
     public ReturnMessage updateRole(RoleRequest roleRequest) {
-        roleRepository.updateRole(roleRequest.generalEntity());
+        roleRepository.updateRole(roleRequest.generateEntity());
         return ReturnMessage.success();
     }
 
@@ -45,5 +47,18 @@ public class RoleController {
     @GetMapping("role/{id}")
     public ReturnMessage queryRoleById(@PathVariable("id") Long id) {
         return ReturnMessage.success(roleRepository.queryById(id));
+    }
+
+
+    @PostMapping("distribution-menu")
+    public ReturnMessage distributionMenu(DistributionMenuRequest request) {
+        roleRepository.distributionMenu(request.getRoleId(), request.generateRoleMenuEntity());
+        return ReturnMessage.success();
+    }
+
+    @PostMapping("distribution-permission")
+    public ReturnMessage distributionPermission(DistributionPermissionRequest request) {
+        roleRepository.distributionPermission(request.getRoleId(), request.generateRolePermissionEntity());
+        return ReturnMessage.success();
     }
 }

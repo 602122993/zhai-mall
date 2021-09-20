@@ -21,8 +21,8 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("zhai_role_resource")
-public class RoleResource implements Serializable {
+@TableName("zhai_role_permission")
+public class RolePermission implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -32,8 +32,8 @@ public class RoleResource implements Serializable {
     @TableField("role_id")
     private Long roleId;
 
-    @TableField("resource_id")
-    private Long resourceId;
+    @TableField("permission_id")
+    private Long permissionId;
 
     @TableField("created_time")
     private Date createdTime;

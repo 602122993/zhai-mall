@@ -62,7 +62,7 @@ public class AddProductCategoryRequest {
 
     private List<Long> attributeIdList;
 
-    public ProductCategoryEntity generalEntity() {
+    public ProductCategoryEntity  generateEntity() {
         return BeanUtil.copyPropertiesIgnoreNullValue(this, ProductCategoryEntity.class);
     }
 }

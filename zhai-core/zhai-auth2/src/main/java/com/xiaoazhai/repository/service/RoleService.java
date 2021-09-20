@@ -17,4 +17,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface RoleService extends IService<Role> {
 
     IPage<RoleEntity> queryRolePage(Page<Role> page, String name);
+
+    void saveRole(Role generateDO);
+
+    void updateRoleById(Role generateDO);
+
+    void removeRoleById(Long id);
+
+    Role queryRoleById(Long id);
 }

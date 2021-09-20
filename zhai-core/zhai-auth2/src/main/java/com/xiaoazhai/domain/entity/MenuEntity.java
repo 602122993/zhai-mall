@@ -4,35 +4,46 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.xiaoazhai.entity.BaseEntity;
-import com.xiaoazhai.repository.entity.Role;
+import com.xiaoazhai.repository.entity.Menu;
 import lombok.Data;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
  * @author jiangyun
- * @date 2021/9/19  14:27
+ * @date 2021/9/20  13:30
  **/
 @Data
-public class RoleEntity implements BaseEntity<Role> {
+public class MenuEntity implements BaseEntity<Menu> {
     private Long id;
 
     /**
-     * 角色名称
+     * 菜单名称
      */
     private String name;
 
-    private String description;
+    /**
+     * 前端页面
+     */
+    private String uri;
+
+    /**
+     * 父级id
+     */
+    private Long parentId;
+
+    /**
+     * icon 图标
+     */
+    private String icon;
 
     private Integer status;
 
-    private Date createdTime;
+    private Integer sort;
 
-    private Date updatedTime;
 
     @Override
-    public Role  generateDO() {
-        return  generateDO(Role.class);
+    public Menu generateDO() {
+        return generateDO(Menu.class);
     }
 }

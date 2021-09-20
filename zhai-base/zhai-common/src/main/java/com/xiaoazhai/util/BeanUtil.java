@@ -9,6 +9,7 @@ import com.xiaoazhai.exception.GlobalException;
 import lombok.SneakyThrows;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,16 +75,21 @@ public class BeanUtil extends cn.hutool.core.bean.BeanUtil {
     }
 
 
-    public static <T> IPage copyPage(Page<? extends BaseDO> page, Class<T> clazz) {
-        return page.convert(obj -> obj.generalEntity(clazz));
+    public static <T> IPage copyPage(IPage<? extends BaseDO> page, Class<T> clazz) {
+        return page.convert(obj -> obj.generateEntity(clazz));
     }
 
     public static <T> T doToEntity(BaseDO<T> baseDO, Class<T> clazz) {
         if (baseDO == null) {
             return null;
         }
-        return baseDO.generalEntity(clazz);
+        return baseDO.generateEntity(clazz);
     }
 
 
+    public static <T> List<T> entityToDOBatch(List<? extends BaseEntity<T>> entityList, Class<T> clazz) {
+        return entityList.stream()
+                .map(entity -> entity.generateDO(clazz))
+                .collect(Collectors.toList());
+    }
 }

@@ -45,10 +45,7 @@ public class MybatisPlusGenerator {
                 .setEntityTableFieldAnnotationEnable(true)
                 .setTablePrefix("zhai") //指定扫描表的前缀
 //                .setFieldPrefix(fieldPrefix);//指定字段前缀
-                .setInclude("zhai_resource" ,
-                        "zhai_role" ,
-                        "zhai_role_menu" ,
-                        "zhai_role_resource");
+                .setInclude("zhai_menu");
         InjectionConfig injectionConfig = new InjectionConfig() {
             @Override
             public void initMap() {
@@ -62,7 +59,7 @@ public class MybatisPlusGenerator {
                 .setService("repository.service")//servcie
                 .setServiceImpl("repository.service.impl")
                 .setController("controller")//controller
-                .setEntity("domain.entity")
+                .setEntity("repository.entity")
                 .setXml("mapping");//mapper.xml
 
         //5. 整合配置

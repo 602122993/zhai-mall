@@ -22,7 +22,7 @@ public class ProductCategoryController {
 
     @PostMapping("save")
     public ReturnMessage saveProductCategory(@RequestBody AddProductCategoryRequest request) {
-        productCategoryRepository.saveProductCategory(request.generalEntity());
+        productCategoryRepository.saveProductCategory(request. generateEntity());
         return ReturnMessage.success();
     }
 

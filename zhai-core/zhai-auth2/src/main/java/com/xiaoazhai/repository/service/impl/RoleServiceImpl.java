@@ -27,4 +27,24 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         return BeanUtil.copyPage(this.page(page, Wrappers.<Role>lambdaQuery()
                 .like(Role::getName, name)), RoleEntity.class);
     }
+
+    @Override
+    public void saveRole(Role generateDO) {
+        save(generateDO);
+    }
+
+    @Override
+    public void updateRoleById(Role generateDO) {
+        updateById(generateDO);
+    }
+
+    @Override
+    public void removeRoleById(Long id) {
+        removeById(id);
+    }
+
+    @Override
+    public Role queryRoleById(Long id) {
+        return this.getById(id);
+    }
 }

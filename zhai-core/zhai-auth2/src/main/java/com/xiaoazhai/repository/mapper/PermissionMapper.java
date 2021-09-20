@@ -1,6 +1,6 @@
 package com.xiaoazhai.repository.mapper;
 
-import com.xiaoazhai.repository.entity.RoleResource;
+import com.xiaoazhai.repository.entity.Permission;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author zhai
  * @since 2021-09-19
  */
-public interface RoleResourceMapper extends BaseMapper<RoleResource> {
+public interface PermissionMapper extends BaseMapper<Permission> {
 
 }

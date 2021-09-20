@@ -8,10 +8,10 @@ import com.xiaoazhai.util.BeanUtil;
  **/
 public interface BaseEntity<T> {
 
-    default T generalDO(Class<T> clazz) {
+    default T  generateDO(Class<T> clazz) {
         return BeanUtil.copyPropertiesIgnoreNullValue(this, clazz);
     }
 
-    T generalDO();
+    T  generateDO();
 
 }

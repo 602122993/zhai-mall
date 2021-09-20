@@ -1,4 +1,4 @@
-package com.xiaoazhai.auth.dto;
+package com.xiaoazhai.auth;
 
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;

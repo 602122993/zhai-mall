@@ -8,9 +8,9 @@ import com.xiaoazhai.util.BeanUtil;
  **/
 public interface BaseDO<T> {
 
-    default T generalEntity(Class<T> clazz) {
+    default T  generateEntity(Class<T> clazz) {
         return BeanUtil.copyPropertiesIgnoreNullValue(this, clazz);
     }
 
-    T generalEntity();
+    T  generateEntity();
 }

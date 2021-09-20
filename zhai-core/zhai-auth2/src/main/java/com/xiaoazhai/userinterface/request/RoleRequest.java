@@ -19,7 +19,7 @@ public class RoleRequest {
 
     private Integer status;
 
-    public RoleEntity generalEntity() {
+    public RoleEntity  generateEntity() {
         return BeanUtil.copyPropertiesIgnoreNullValue(this, RoleEntity.class);
     }
 

@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface RoleMenuService extends IService<RoleMenu> {
 
+    void removeByRoleId(Long roleId);
 }
