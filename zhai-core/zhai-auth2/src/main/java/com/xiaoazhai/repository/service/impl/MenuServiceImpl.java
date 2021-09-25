@@ -11,6 +11,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xiaoazhai.util.BeanUtil;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  * 服务实现类
@@ -47,5 +49,10 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     @Override
     public void removeMenuById(Long id) {
         this.removeById(id);
+    }
+
+    @Override
+    public List<MenuEntity> queryMenuListByIds(List<Long> ids) {
+        return BeanUtil.doToEntityBatch(this.listByIds(ids), MenuEntity.class);
     }
 }

@@ -1,10 +1,12 @@
 package com.xiaoazhai.repository.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.xiaoazhai.domain.entity.RoleMenuEntity;
 import com.xiaoazhai.repository.entity.RoleMenu;
 import com.xiaoazhai.repository.mapper.RoleMenuMapper;
 import com.xiaoazhai.repository.service.RoleMenuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.xiaoazhai.util.BeanUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,6 +35,12 @@ public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenu> i
                 .stream()
                 .map(RoleMenu::getRoleId)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<RoleMenuEntity> queryListByRoleIdList(List<Long> roleIdList) {
+        return BeanUtil.doToEntityBatch(this.list(Wrappers.<RoleMenu>lambdaQuery()
+                .in(RoleMenu::getRoleId, roleIdList)), RoleMenuEntity.class);
     }
 
 }

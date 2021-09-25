@@ -29,4 +29,8 @@ public interface RoleService extends IService<Role> {
     RoleEntity queryRoleById(Long id);
 
     List<RoleEntity> queryListByIds(List<Long> roleIdList);
+
+    RoleEntity queryRoleByCode(String code);
+
+    RoleEntity queryRoleByCodeAndId(String code, Long id);
 }

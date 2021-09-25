@@ -54,4 +54,17 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     public List<RoleEntity> queryListByIds(List<Long> roleIdList) {
         return BeanUtil.doToEntityBatch(this.listByIds(roleIdList), RoleEntity.class);
     }
+
+    @Override
+    public RoleEntity queryRoleByCode(String code) {
+        return BeanUtil.doToEntity(this.getOne(Wrappers.<Role>lambdaQuery()
+                .eq(Role::getCode, code)), RoleEntity.class);
+    }
+
+    @Override
+    public RoleEntity queryRoleByCodeAndId(String code, Long id) {
+        return BeanUtil.doToEntity(this.getOne(Wrappers.<Role>lambdaQuery()
+                .eq(Role::getCode, code)
+                .ne(id != null, Role::getId, id)), RoleEntity.class);
+    }
 }

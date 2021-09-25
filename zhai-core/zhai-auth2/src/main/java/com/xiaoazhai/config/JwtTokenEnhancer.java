@@ -22,7 +22,7 @@ public class JwtTokenEnhancer implements TokenEnhancer {
         Map<String, Object> info = new HashMap<>();
         //把用户ID设置到JWT中
         info.put("username", securityUser.getUserDTO().getUsername());
-        info.put("roleIdList", securityUser.getUserDTO().getRoleIdList());
+        info.put("menuList", securityUser.getUserDTO().getMenuList());
         info.put("name", securityUser.getUserDTO().getName());
         ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(info);
         return accessToken;

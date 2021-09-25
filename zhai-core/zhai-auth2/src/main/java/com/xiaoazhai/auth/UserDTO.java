@@ -1,6 +1,7 @@
 package com.xiaoazhai.auth;
 
 import com.xiaoazhai.domain.entity.AdminEntity;
+import com.xiaoazhai.domain.entity.MenuEntity;
 import com.xiaoazhai.domain.entity.RoleEntity;
 import com.xiaoazhai.util.BeanUtil;
 import lombok.Data;
@@ -33,6 +34,8 @@ public class UserDTO {
     private Date lastLoginTime;
 
     private List<RoleEntity> roleEntityList;
+    private List<MenuEntity> menuList;
+
 
     private List<Long> roleIdList;
 

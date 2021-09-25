@@ -3,17 +3,22 @@ package com.xiaoazhai.repository.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.time.LocalDateTime;
+
 import com.baomidou.mybatisplus.annotation.TableField;
+
 import java.io.Serializable;
 import java.util.Date;
 
+import com.xiaoazhai.domain.entity.RoleMenuEntity;
+import com.xiaoazhai.entity.BaseDO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author zhai
@@ -22,11 +27,11 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("zhai_role_menu")
-public class RoleMenu implements Serializable {
+public class RoleMenu implements Serializable, BaseDO<RoleMenuEntity> {
 
     private static final long serialVersionUID = 1L;
 
-      @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     @TableField("role_id")
@@ -42,4 +47,8 @@ public class RoleMenu implements Serializable {
     private Date updatedTime;
 
 
+    @Override
+    public RoleMenuEntity generateEntity() {
+        return generateEntity(RoleMenuEntity.class);
+    }
 }

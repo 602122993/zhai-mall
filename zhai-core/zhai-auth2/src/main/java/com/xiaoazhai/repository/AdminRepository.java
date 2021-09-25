@@ -34,6 +34,8 @@ public class AdminRepository {
     private PasswordEncoder passwordEncoder;
     @Resource
     private RoleRepository roleRepository;
+    @Resource
+    private MenuRepository menuRepository;
 
     public IPage<AdminEntity> queryAdminList(Page page, String name) {
         IPage<AdminEntity> adminPage = adminService.queryAdminList(page, name);
@@ -72,6 +74,7 @@ public class AdminRepository {
     public AdminEntity queryAdminByUsername(String username) {
         AdminEntity adminEntity = BeanUtil.doToEntity(adminService.queryAdminByUsername(username), AdminEntity.class);
         if (adminEntity != null) {
+            adminEntity.setMenuList(menuRepository.queryByAdminId(adminEntity.getId()));
             adminEntity.setRoleEntityList(roleRepository.queryByAdminId(adminEntity.getId()));
         }
         return adminEntity;

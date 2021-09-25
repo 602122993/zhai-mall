@@ -1,17 +1,22 @@
 package com.xiaoazhai.repository;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiaoazhai.domain.entity.MenuEntity;
 import com.xiaoazhai.domain.entity.RoleEntity;
+import com.xiaoazhai.domain.entity.RoleMenuEntity;
+import com.xiaoazhai.repository.entity.RoleMenu;
 import com.xiaoazhai.repository.service.MenuService;
 import com.xiaoazhai.repository.service.RoleMenuService;
 import com.xiaoazhai.util.BeanUtil;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -28,6 +33,9 @@ public class MenuRepository {
 
     @Resource
     private MenuService menuService;
+
+    @Resource
+    private RoleMenuService roleMenuService;
 
     public IPage<MenuEntity> queryMenuPage(Page page, String name) {
         return menuService.queryMenuPage(page, name);
@@ -70,5 +78,22 @@ public class MenuRepository {
                     .map(RoleEntity::getId)
                     .collect(Collectors.toList()));
         });
+    }
+
+    public List<MenuEntity> queryByAdminId(Long id) {
+        return Optional.ofNullable(id)
+                .map(roleRepository::queryByAdminId)
+                .map(roleEntities -> roleEntities.stream()
+                        .map(RoleEntity::getId)
+                        .collect(Collectors.toList()))
+                .filter(CollectionUtil::isNotEmpty)
+                .map(roleMenuService::queryListByRoleIdList)
+                .map(roleMenuEntityList -> roleMenuEntityList.stream()
+                        .map(RoleMenuEntity::getMenuId)
+                        .collect(Collectors.toList()))
+                .filter(CollectionUtil::isNotEmpty)
+                .map(menuService::queryMenuListByIds)
+                .orElseGet(ArrayList::new);
+
     }
 }

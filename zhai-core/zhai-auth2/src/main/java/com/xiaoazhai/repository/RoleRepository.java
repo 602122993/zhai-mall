@@ -1,6 +1,7 @@
 package com.xiaoazhai.repository;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.lang.Assert;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiaoazhai.domain.entity.RoleEntity;
@@ -45,10 +46,20 @@ public class RoleRepository {
     }
 
     public void saveRole(RoleEntity roleEntity) {
+        this.checkRepeatRoleCode(roleEntity);
         roleService.saveRole(roleEntity.generateDO(Role.class));
     }
 
+    private void checkRepeatRoleCode(RoleEntity code) {
+        Assert.isNull(this.roleService.queryRoleByCodeAndId(code.getCode(), code.getId()), "角色代码冲突！");
+    }
+
+    private RoleEntity queryRoleByCode(String code) {
+        return roleService.queryRoleByCode(code);
+    }
+
     public void updateRole(RoleEntity roleEntity) {
+        checkRepeatRoleCode(roleEntity);
         roleService.updateRoleById(roleEntity.generateDO(Role.class));
     }
 

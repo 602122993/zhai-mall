@@ -19,6 +19,8 @@ public class RoleRequest {
 
     private Integer status;
 
+    private String code;
+
     public RoleEntity  generateEntity() {
         return BeanUtil.copyPropertiesIgnoreNullValue(this, RoleEntity.class);
     }
