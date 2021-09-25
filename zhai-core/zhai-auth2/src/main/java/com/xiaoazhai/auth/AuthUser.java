@@ -1,24 +1,30 @@
 package com.xiaoazhai.auth;
 
+import com.xiaoazhai.domain.entity.AdminEntity;
+import com.xiaoazhai.enums.CommonStatusEnum;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 /**
  * @author jiangyun
  * @date 2021/9/14  16:26
  **/
 @Data
-public class SpringUser implements UserDetails {
+public class AuthUser implements UserDetails {
 
     private UserDTO userDTO;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new ArrayList<>();
+        return userDTO.getRoleEntityList()
+                .stream()
+                .map(roleEntity -> new SimpleGrantedAuthority(roleEntity.getId().toString()))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -48,6 +54,6 @@ public class SpringUser implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return userDTO.getStatus() == CommonStatusEnum.USED.getCode();
     }
 }

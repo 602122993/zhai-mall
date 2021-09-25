@@ -1,6 +1,6 @@
 package com.xiaoazhai.config;
 
-import com.xiaoazhai.auth.SpringUser;
+import com.xiaoazhai.auth.AuthUser;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -18,10 +18,12 @@ import java.util.Map;
 public class JwtTokenEnhancer implements TokenEnhancer {
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
-        SpringUser securityUser = (SpringUser) authentication.getPrincipal();
+        AuthUser securityUser = (AuthUser) authentication.getPrincipal();
         Map<String, Object> info = new HashMap<>();
         //把用户ID设置到JWT中
-        info.put("id", securityUser.getUserDTO().getUsername());
+        info.put("username", securityUser.getUserDTO().getUsername());
+        info.put("roleIdList", securityUser.getUserDTO().getRoleIdList());
+        info.put("name", securityUser.getUserDTO().getName());
         ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(info);
         return accessToken;
     }

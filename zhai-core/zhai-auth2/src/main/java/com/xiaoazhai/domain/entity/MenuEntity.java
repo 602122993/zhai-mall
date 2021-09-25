@@ -6,14 +6,18 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.xiaoazhai.entity.BaseEntity;
 import com.xiaoazhai.repository.entity.Menu;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author jiangyun
  * @date 2021/9/20  13:30
  **/
-@Data
+@Setter
+@Getter
 public class MenuEntity implements BaseEntity<Menu> {
     private Long id;
 
@@ -41,6 +45,9 @@ public class MenuEntity implements BaseEntity<Menu> {
 
     private Integer sort;
 
+    private List<MenuEntity> childList;
+
+    private List<Long> roleIdList;
 
     @Override
     public Menu generateDO() {

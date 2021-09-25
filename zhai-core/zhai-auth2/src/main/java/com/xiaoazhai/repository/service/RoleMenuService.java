@@ -3,6 +3,8 @@ package com.xiaoazhai.repository.service;
 import com.xiaoazhai.repository.entity.RoleMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -14,4 +16,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface RoleMenuService extends IService<RoleMenu> {
 
     void removeByRoleId(Long roleId);
+
+    List<Long> queryRoleIdListByMenuId(Long id);
 }

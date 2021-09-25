@@ -40,6 +40,9 @@ public class Role implements Serializable, BaseDO<RoleEntity> {
     @TableField("name")
     private String name;
 
+    @TableField("code")
+    private String code;
+
     @TableField("description")
     private String description;
 

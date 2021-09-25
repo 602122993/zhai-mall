@@ -18,7 +18,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("product_category")
+@TableName("zhai_product_category")
 public class ProductCategory implements Serializable {
 
     private static final long serialVersionUID=1L;

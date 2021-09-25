@@ -36,7 +36,8 @@ public class AdminEntity implements BaseEntity<Admin> {
 
     private Date lastLoginTime;
 
-    private List<Long> roleIdList;
+    private List<RoleEntity> roleEntityList;
+
 
     @Override
     public Admin generateDO() {

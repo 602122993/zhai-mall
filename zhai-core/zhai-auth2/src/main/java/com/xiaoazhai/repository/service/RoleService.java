@@ -6,6 +6,8 @@ import com.xiaoazhai.domain.entity.RoleEntity;
 import com.xiaoazhai.repository.entity.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -24,5 +26,7 @@ public interface RoleService extends IService<Role> {
 
     void removeRoleById(Long id);
 
-    Role queryRoleById(Long id);
+    RoleEntity queryRoleById(Long id);
+
+    List<RoleEntity> queryListByIds(List<Long> roleIdList);
 }

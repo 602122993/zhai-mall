@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  * @author jiangyun
  * @date 2021/9/14  16:30
  **/
-//@Component
+@Component
 public class SpringAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
@@ -29,8 +29,8 @@ public class SpringAuthenticationProvider implements AuthenticationProvider {
         String password = authentication.getCredentials().toString();
 
         UserDetails user = userDetailsService.loadUserByUsername(username);
-        if (passwordEncoder.matches(password, user.getPassword())) {
-            return new UsernamePasswordAuthenticationToken(username, password, user.getAuthorities());
+        if (user != null && passwordEncoder.matches(password, user.getPassword())) {
+            return new UsernamePasswordAuthenticationToken(user, password, user.getAuthorities());
         } else {
             throw new BadCredentialsException("The username or password is wrong!");
         }

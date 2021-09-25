@@ -1,10 +1,13 @@
 package com.xiaoazhai.repository;
 
+import cn.hutool.core.lang.Assert;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiaoazhai.domain.entity.AdminEntity;
 import com.xiaoazhai.domain.entity.AdminRoleEntity;
+import com.xiaoazhai.domain.entity.RoleEntity;
 import com.xiaoazhai.repository.entity.AdminRole;
+import com.xiaoazhai.repository.entity.Role;
 import com.xiaoazhai.repository.service.AdminRoleService;
 import com.xiaoazhai.repository.service.AdminService;
 import com.xiaoazhai.util.BeanUtil;
@@ -14,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -30,27 +32,24 @@ public class AdminRepository {
     private AdminRoleService adminRoleService;
     @Resource
     private PasswordEncoder passwordEncoder;
-
+    @Resource
+    private RoleRepository roleRepository;
 
     public IPage<AdminEntity> queryAdminList(Page page, String name) {
         IPage<AdminEntity> adminPage = adminService.queryAdminList(page, name);
-        List<AdminEntity> record = adminPage.getRecords();
-        List<Long> adminIdList = record.stream()
-                .map(AdminEntity::getId)
-                .collect(Collectors.toList());
-        List<AdminRole> adminRoleList = adminRoleService.queryByAdminIdList(adminIdList);
-        Map<Long, List<Long>> adminRoleMap = adminRoleList.stream()
-                .collect(Collectors.groupingBy(AdminRole::getAdminId, Collectors.mapping(AdminRole::getRoleId, Collectors.toList())));
-        record.forEach(admin -> admin.setRoleIdList(adminRoleMap.get(admin.getId())));
+        List<AdminEntity> recordList = adminPage.getRecords();
+        recordList.forEach(record -> record.setRoleEntityList(roleRepository.queryByAdminId(record.getId())));
         return adminPage;
     }
 
     public void saveAdmin(AdminEntity adminEntity) {
+        Assert.isNull(this.queryAdminByUsername(adminEntity.getUsername()), "用户名冲突！");
         adminEntity.setPassword(passwordEncoder.encode(adminEntity.getPassword()));
         adminService.save(adminEntity.generateDO());
     }
 
     public void updateAdminById(AdminEntity adminEntity) {
+        Assert.isNull(adminService.queryAdminByUsernameAndNeId(adminEntity.getUsername(), adminEntity.getId()), "用户名冲突！");
         adminService.updateById(adminEntity.generateDO());
     }
 
@@ -68,5 +67,13 @@ public class AdminRepository {
     public void distributionAdminRole(Long adminId, List<AdminRoleEntity> adminRoleEntityList) {
         adminRoleService.removeByAdminId(adminId);
         adminRoleService.saveBatch(BeanUtil.entityToDOBatch(adminRoleEntityList, AdminRole.class));
+    }
+
+    public AdminEntity queryAdminByUsername(String username) {
+        AdminEntity adminEntity = BeanUtil.doToEntity(adminService.queryAdminByUsername(username), AdminEntity.class);
+        if (adminEntity != null) {
+            adminEntity.setRoleEntityList(roleRepository.queryByAdminId(adminEntity.getId()));
+        }
+        return adminEntity;
     }
 }

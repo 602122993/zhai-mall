@@ -11,6 +11,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xiaoazhai.util.BeanUtil;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  * 服务实现类
@@ -44,7 +46,12 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     }
 
     @Override
-    public Role queryRoleById(Long id) {
-        return this.getById(id);
+    public RoleEntity queryRoleById(Long id) {
+        return BeanUtil.doToEntity(this.getById(id), RoleEntity.class);
+    }
+
+    @Override
+    public List<RoleEntity> queryListByIds(List<Long> roleIdList) {
+        return BeanUtil.doToEntityBatch(this.listByIds(roleIdList), RoleEntity.class);
     }
 }

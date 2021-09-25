@@ -6,9 +6,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiaoazhai.domain.entity.RoleEntity;
 import com.xiaoazhai.domain.entity.RoleMenuEntity;
 import com.xiaoazhai.domain.entity.RolePermissionEntity;
+import com.xiaoazhai.repository.entity.AdminRole;
 import com.xiaoazhai.repository.entity.Role;
 import com.xiaoazhai.repository.entity.RoleMenu;
 import com.xiaoazhai.repository.entity.RolePermission;
+import com.xiaoazhai.repository.service.AdminRoleService;
 import com.xiaoazhai.repository.service.RoleMenuService;
 import com.xiaoazhai.repository.service.RolePermissionService;
 import com.xiaoazhai.repository.service.RoleService;
@@ -17,7 +19,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author jiangyun
@@ -32,6 +36,9 @@ public class RoleRepository {
     private RoleMenuService roleMenuService;
     @Resource
     private RolePermissionService rolePermissionService;
+
+    @Resource
+    private AdminRoleService adminRoleService;
 
     public IPage<RoleEntity> queryRolePage(Page page, String name) {
         return roleService.queryRolePage(page, name);
@@ -50,7 +57,7 @@ public class RoleRepository {
     }
 
     public RoleEntity queryById(Long id) {
-        return BeanUtil.doToEntity(roleService.queryRoleById(id), RoleEntity.class);
+        return roleService.queryRoleById(id);
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -67,5 +74,25 @@ public class RoleRepository {
         if (CollectionUtil.isNotEmpty(rolePermissionEntityList)) {
             rolePermissionService.saveBatch(BeanUtil.entityToDOBatch(rolePermissionEntityList, RolePermission.class));
         }
+    }
+
+    public List<RoleEntity> queryByAdminId(Long adminId) {
+        List<AdminRole> adminRoleList = adminRoleService.queryByAdminId(adminId);
+        List<Long> roleIdList = adminRoleList.stream()
+                .map(AdminRole::getRoleId)
+                .collect(Collectors.toList());
+        if (CollectionUtil.isEmpty(roleIdList)) {
+            return new ArrayList<>();
+        }
+        List<Role> roleList = roleService.listByIds(roleIdList);
+        return BeanUtil.doToEntityBatch(roleList, RoleEntity.class);
+    }
+
+    public List<RoleEntity> queryAllRoleListByMenuId(Long id) {
+        List<Long> roleIdList = roleMenuService.queryRoleIdListByMenuId(id);
+        if (CollectionUtil.isEmpty(roleIdList)) {
+            return new ArrayList<>();
+        }
+        return roleService.queryListByIds(roleIdList);
     }
 }

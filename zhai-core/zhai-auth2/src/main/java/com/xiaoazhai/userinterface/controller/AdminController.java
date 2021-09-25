@@ -1,5 +1,6 @@
 package com.xiaoazhai.userinterface.controller;
 
+import com.xiaoazhai.auth.LoginUserHolder;
 import com.xiaoazhai.repository.AdminRepository;
 import com.xiaoazhai.result.ReturnMessage;
 import com.xiaoazhai.userinterface.request.AdminRequest;
@@ -19,6 +20,8 @@ public class AdminController {
 
     @Resource
     private AdminRepository adminRepository;
+    @Resource
+    private LoginUserHolder loginUserHolder;
 
 
     @GetMapping("list")
@@ -54,5 +57,16 @@ public class AdminController {
         adminRepository.distributionAdminRole(request.getAdminId(), request.generateAdminRoleEntity());
         return ReturnMessage.success();
     }
+
+    @GetMapping("user-info")
+    public ReturnMessage userInfo() {
+        return ReturnMessage.success(loginUserHolder.getCurrentUser());
+    }
+
+    @RequestMapping("logout")
+    public ReturnMessage logout() {
+        return ReturnMessage.success();
+    }
+
 
 }

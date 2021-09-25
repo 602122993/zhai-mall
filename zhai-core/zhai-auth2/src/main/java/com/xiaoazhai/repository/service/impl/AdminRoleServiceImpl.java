@@ -31,4 +31,10 @@ public class AdminRoleServiceImpl extends ServiceImpl<AdminRoleMapper, AdminRole
         return this.list(Wrappers.<AdminRole>lambdaQuery()
                 .in(AdminRole::getAdminId, adminIdList));
     }
+
+    @Override
+    public List<AdminRole> queryByAdminId(Long adminId) {
+        return this.list(Wrappers.<AdminRole>lambdaQuery()
+                .eq(AdminRole::getAdminId, adminId));
+    }
 }

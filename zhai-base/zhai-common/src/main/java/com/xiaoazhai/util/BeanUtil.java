@@ -92,4 +92,10 @@ public class BeanUtil extends cn.hutool.core.bean.BeanUtil {
                 .map(entity -> entity.generateDO(clazz))
                 .collect(Collectors.toList());
     }
+
+    public static <T> List<T> doToEntityBatch(List<? extends BaseDO<T>> doList, Class<T> clazz) {
+        return doList.stream()
+                .map(obj -> obj.generateEntity(clazz))
+                .collect(Collectors.toList());
+    }
 }

@@ -38,4 +38,8 @@ public class PermissionRepository {
     public void deleteById(Long id) {
         permissionService.removeById(id);
     }
+
+    public void queryAuthorityByAdminId(Long adminId) {
+
+    }
 }

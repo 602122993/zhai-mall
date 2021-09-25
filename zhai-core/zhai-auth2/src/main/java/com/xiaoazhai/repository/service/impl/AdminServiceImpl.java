@@ -26,4 +26,17 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     public IPage<AdminEntity> queryAdminList(Page page, String name) {
         return BeanUtil.copyPage(this.page(page, Wrappers.<Admin>lambdaQuery().like(Admin::getName, name)), AdminEntity.class);
     }
+
+    @Override
+    public Admin queryAdminByUsername(String username) {
+        return this.getOne(Wrappers.<Admin>lambdaQuery()
+                .eq(Admin::getUsername, username));
+    }
+
+    @Override
+    public Admin queryAdminByUsernameAndNeId(String username, Long id) {
+        return this.getOne(Wrappers.<Admin>lambdaQuery()
+                .ne(Admin::getId, id)
+                .eq(Admin::getUsername, username));
+    }
 }

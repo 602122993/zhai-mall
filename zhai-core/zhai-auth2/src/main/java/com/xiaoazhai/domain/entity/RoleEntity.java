@@ -18,6 +18,8 @@ import java.util.Date;
 public class RoleEntity implements BaseEntity<Role> {
     private Long id;
 
+    private String code;
+
     /**
      * 角色名称
      */
@@ -29,10 +31,12 @@ public class RoleEntity implements BaseEntity<Role> {
 
     private Date createdTime;
 
+    private Long adminId;
+
     private Date updatedTime;
 
     @Override
-    public Role  generateDO() {
-        return  generateDO(Role.class);
+    public Role generateDO() {
+        return generateDO(Role.class);
     }
 }

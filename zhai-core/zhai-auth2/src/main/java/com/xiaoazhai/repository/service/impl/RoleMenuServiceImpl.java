@@ -7,6 +7,9 @@ import com.xiaoazhai.repository.service.RoleMenuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * <p>
  *  服务实现类
@@ -22,4 +25,14 @@ public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenu> i
     public void removeByRoleId(Long roleId) {
         this.remove(Wrappers.<RoleMenu>lambdaQuery().eq(RoleMenu::getRoleId, roleId));
     }
+
+    @Override
+    public List<Long> queryRoleIdListByMenuId(Long id) {
+        return this.list(Wrappers.<RoleMenu>lambdaQuery()
+                .eq(RoleMenu::getMenuId, id))
+                .stream()
+                .map(RoleMenu::getRoleId)
+                .collect(Collectors.toList());
+    }
+
 }

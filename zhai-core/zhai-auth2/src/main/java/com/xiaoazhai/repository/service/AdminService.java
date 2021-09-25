@@ -17,4 +17,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface AdminService extends IService<Admin> {
 
     IPage<AdminEntity> queryAdminList(Page page, String name);
+
+    Admin queryAdminByUsername(String username);
+
+    Admin queryAdminByUsernameAndNeId(String username, Long id);
 }

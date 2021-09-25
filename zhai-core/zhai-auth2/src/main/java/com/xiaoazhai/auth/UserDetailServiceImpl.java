@@ -1,9 +1,10 @@
 package com.xiaoazhai.auth;
 
+import com.xiaoazhai.domain.entity.AdminEntity;
+import com.xiaoazhai.repository.AdminRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -16,15 +17,16 @@ import javax.annotation.Resource;
 public class UserDetailServiceImpl implements UserDetailsService {
 
     @Resource
-    private PasswordEncoder passwordEncoder;
+    private AdminRepository adminRepository;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        UserDTO userDTO = new UserDTO();
-        userDTO.setPassword(passwordEncoder.encode("123456"));
-        userDTO.setUsername("user");
-        SpringUser springUser = new SpringUser();
-        springUser.setUserDTO(userDTO);
-        return springUser;
+        AdminEntity adminEntity = adminRepository.queryAdminByUsername(s);
+        if (adminEntity == null) {
+            return null;
+        }
+        AuthUser authUser = new AuthUser();
+        authUser.setUserDTO(UserDTO.convertFromEntity(adminEntity));
+        return authUser;
     }
 }

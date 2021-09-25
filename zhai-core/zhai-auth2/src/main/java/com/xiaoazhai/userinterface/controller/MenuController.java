@@ -47,5 +47,9 @@ public class MenuController {
         return ReturnMessage.success();
     }
 
+    @GetMapping("query-all-menu")
+    public ReturnMessage queryAllMenu() {
+        return ReturnMessage.success(menuRepository.queryTreeMenu());
+    }
 
 }
