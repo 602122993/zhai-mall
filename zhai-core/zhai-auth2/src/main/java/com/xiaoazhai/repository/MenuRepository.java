@@ -96,4 +96,8 @@ public class MenuRepository {
                 .orElseGet(ArrayList::new);
 
     }
+
+    public List<Long> queryMenuIdListByRoleId(String roleId) {
+        return roleMenuService.queryMenuIdListByRoleId(roleId);
+    }
 }

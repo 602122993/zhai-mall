@@ -74,4 +74,26 @@ public class WebExceptionHandler {
         return resultType;
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseBody
+    public ReturnMessage resloveException(HttpServletRequest request, HttpServletResponse response, Object o, IllegalArgumentException e) {
+        response.setContentType("application/json;charset=UTF-8");
+        ReturnMessage resultType = new ReturnMessage();
+        try {
+            response.setStatus(200);
+            resultType.setCode("1");
+            resultType.setMessage(e.getMessage());
+            log.error("---- 已捕获异常 ----", e);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            response.setStatus(200);
+            resultType.setCode("1");
+            resultType.setMessage("抱歉，系统开小差了，请稍后再试");
+            log.error("---- 未捕获异常 ----", e);
+        }
+        return resultType;
+    }
+
+
+
 }

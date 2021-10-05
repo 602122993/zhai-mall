@@ -21,4 +21,6 @@ public interface RoleMenuService extends IService<RoleMenu> {
     List<Long> queryRoleIdListByMenuId(Long id);
 
     List<RoleMenuEntity> queryListByRoleIdList(List<Long> roleIdList);
+
+    List<Long> queryMenuIdListByRoleId(String roleId);
 }

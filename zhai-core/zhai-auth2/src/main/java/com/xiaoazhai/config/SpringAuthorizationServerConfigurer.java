@@ -46,7 +46,7 @@ public class SpringAuthorizationServerConfigurer extends AuthorizationServerConf
                 .secret(passwordEncoder.encode("123456"))
                 .scopes("all")
                 .authorizedGrantTypes("password", "refresh_token")
-                .accessTokenValiditySeconds(1)
+                .accessTokenValiditySeconds(3600)
                 .refreshTokenValiditySeconds(86400);
     }
 

@@ -16,6 +16,8 @@ public class PermissionEntity implements BaseEntity<Permission> {
 
     private String name;
 
+    private Long categoryId;
+
     private String uri;
 
     private String description;

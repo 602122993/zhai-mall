@@ -2,8 +2,11 @@ package com.xiaoazhai.repository.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.xiaoazhai.domain.entity.PermissionEntity;
 import com.xiaoazhai.repository.entity.Permission;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -22,4 +25,9 @@ public interface PermissionService extends IService<Permission> {
     void updatePermission(Permission generateDO);
 
     Permission queryPermissionById(Long id);
+
+
+    List<PermissionEntity> queryPermissionListByIdList(List<Long> permissionIdList);
+
+    List<PermissionEntity> queryAllPermission();
 }

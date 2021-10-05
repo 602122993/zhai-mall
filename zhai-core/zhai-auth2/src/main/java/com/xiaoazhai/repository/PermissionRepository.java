@@ -2,12 +2,17 @@ package com.xiaoazhai.repository;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.xiaoazhai.domain.entity.PermissionCategoryEntity;
 import com.xiaoazhai.domain.entity.PermissionEntity;
+import com.xiaoazhai.repository.entity.PermissionCategory;
+import com.xiaoazhai.repository.service.PermissionCategoryService;
 import com.xiaoazhai.repository.service.PermissionService;
+import com.xiaoazhai.repository.service.RolePermissionService;
 import com.xiaoazhai.util.BeanUtil;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author jiangyun
@@ -18,6 +23,11 @@ public class PermissionRepository {
 
     @Resource
     private PermissionService permissionService;
+    @Resource
+    private RolePermissionService rolePermissionService;
+
+    @Resource
+    private PermissionCategoryService permissionCategoryService;
 
     public IPage<PermissionEntity> queryPermissionPage(Page page, String name) {
         return BeanUtil.copyPage(permissionService.queryPermissionPage(page, name), PermissionEntity.class);
@@ -39,7 +49,16 @@ public class PermissionRepository {
         permissionService.removeById(id);
     }
 
-    public void queryAuthorityByAdminId(Long adminId) {
+    public List<Long> queryPermissionByRoleId(Long roleId) {
+        return rolePermissionService.queryPermissionIdListByRoleId(roleId);
+    }
 
+    public List<PermissionCategoryEntity> queryPermissionTreeList() {
+        List<PermissionEntity> permissionEntityList = permissionService.queryAllPermission();
+        List<PermissionCategoryEntity> permissionCategoryList = permissionCategoryService.queryList();
+        permissionCategoryList.forEach(permissionCategoryEntity -> {
+            permissionCategoryEntity.formatPermissionList(permissionEntityList);
+        });
+        return permissionCategoryList;
     }
 }

@@ -9,6 +9,7 @@ import com.xiaoazhai.repository.mapper.RoleMapper;
 import com.xiaoazhai.repository.service.RoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xiaoazhai.util.BeanUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,7 +28,8 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     @Override
     public IPage<RoleEntity> queryRolePage(Page page, String name) {
         return BeanUtil.copyPage(this.page(page, Wrappers.<Role>lambdaQuery()
-                .like(Role::getName, name)), RoleEntity.class);
+                .orderByDesc(Role::getId)
+                .like(StringUtils.isNotEmpty(name), Role::getName, name)), RoleEntity.class);
     }
 
     @Override

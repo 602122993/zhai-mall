@@ -43,4 +43,13 @@ public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenu> i
                 .in(RoleMenu::getRoleId, roleIdList)), RoleMenuEntity.class);
     }
 
+    @Override
+    public List<Long> queryMenuIdListByRoleId(String roleId) {
+        return this.list(Wrappers.<RoleMenu>lambdaQuery()
+                .eq(RoleMenu::getRoleId, roleId))
+                .stream()
+                .map(RoleMenu::getMenuId)
+                .collect(Collectors.toList());
+    }
+
 }

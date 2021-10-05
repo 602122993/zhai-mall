@@ -15,12 +15,14 @@ public class PermissionRequest {
 
     private String uri;
 
+    private Long categoryId;
     private String description;
 
     public PermissionEntity generateEntity() {
         PermissionEntity permissionEntity = new PermissionEntity();
         permissionEntity.setId(id);
         permissionEntity.setName(name);
+        permissionEntity.setCategoryId(categoryId);
         permissionEntity.setDescription(description);
         permissionEntity.setUri(uri);
         return permissionEntity;

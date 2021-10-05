@@ -27,13 +27,13 @@ public class RoleController {
     }
 
     @PostMapping("save")
-    public ReturnMessage saveRole(RoleRequest addRoleRequest) {
+    public ReturnMessage saveRole(@RequestBody RoleRequest addRoleRequest) {
         roleRepository.saveRole(addRoleRequest.generateEntity());
         return ReturnMessage.success();
     }
 
     @PostMapping("update")
-    public ReturnMessage updateRole(RoleRequest roleRequest) {
+    public ReturnMessage updateRole(@RequestBody RoleRequest roleRequest) {
         roleRepository.updateRole(roleRequest.generateEntity());
         return ReturnMessage.success();
     }
@@ -51,13 +51,13 @@ public class RoleController {
 
 
     @PostMapping("distribution-menu")
-    public ReturnMessage distributionMenu(DistributionMenuRequest request) {
+    public ReturnMessage distributionMenu(@RequestBody DistributionMenuRequest request) {
         roleRepository.distributionMenu(request.getRoleId(), request.generateRoleMenuEntity());
         return ReturnMessage.success();
     }
 
     @PostMapping("distribution-permission")
-    public ReturnMessage distributionPermission(DistributionPermissionRequest request) {
+    public ReturnMessage distributionPermission(@RequestBody DistributionPermissionRequest request) {
         roleRepository.distributionPermission(request.getRoleId(), request.generateRolePermissionEntity());
         return ReturnMessage.success();
     }

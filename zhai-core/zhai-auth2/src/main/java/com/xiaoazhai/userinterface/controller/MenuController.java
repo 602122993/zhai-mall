@@ -52,4 +52,9 @@ public class MenuController {
         return ReturnMessage.success(menuRepository.queryTreeMenu());
     }
 
+    @GetMapping("query-by-role-id")
+    public ReturnMessage queryByRoleId(String roleId) {
+        return ReturnMessage.success(menuRepository.queryMenuIdListByRoleId(roleId));
+    }
+
 }

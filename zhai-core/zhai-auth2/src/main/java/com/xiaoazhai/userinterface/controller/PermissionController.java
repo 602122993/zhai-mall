@@ -48,4 +48,15 @@ public class PermissionController {
         return ReturnMessage.success();
     }
 
+    @GetMapping("query-by-role-id")
+    public ReturnMessage queryByRoleId(Long roleId) {
+        return ReturnMessage.success(permissionRepository.queryPermissionByRoleId(roleId));
+    }
+
+    @GetMapping("query-all-permission-tree")
+    public ReturnMessage queryAllPermissionTree() {
+        return ReturnMessage.success(permissionRepository.queryPermissionTreeList());
+    }
+
+
 }
