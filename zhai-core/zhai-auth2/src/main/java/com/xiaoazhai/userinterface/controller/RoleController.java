@@ -61,4 +61,10 @@ public class RoleController {
         roleRepository.distributionPermission(request.getRoleId(), request.generateRolePermissionEntity());
         return ReturnMessage.success();
     }
+
+
+    @GetMapping("query-all-role-list")
+    public  ReturnMessage queryAllRoleList(){
+        return ReturnMessage.success(roleRepository.queryAllRole());
+    }
 }

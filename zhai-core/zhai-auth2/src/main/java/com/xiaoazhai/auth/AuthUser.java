@@ -21,9 +21,9 @@ public class AuthUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return userDTO.getRoleEntityList()
+        return userDTO.getRoleIdList()
                 .stream()
-                .map(roleEntity -> new SimpleGrantedAuthority(roleEntity.getId().toString()))
+                .map(id -> new SimpleGrantedAuthority(id.toString()))
                 .collect(Collectors.toList());
     }
 

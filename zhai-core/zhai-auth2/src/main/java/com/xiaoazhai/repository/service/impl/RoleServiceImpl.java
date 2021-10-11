@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiaoazhai.domain.entity.RoleEntity;
+import com.xiaoazhai.enums.CommonStatusEnum;
 import com.xiaoazhai.repository.entity.Role;
 import com.xiaoazhai.repository.mapper.RoleMapper;
 import com.xiaoazhai.repository.service.RoleService;
@@ -68,5 +69,11 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         return BeanUtil.doToEntity(this.getOne(Wrappers.<Role>lambdaQuery()
                 .eq(Role::getCode, code)
                 .ne(id != null, Role::getId, id)), RoleEntity.class);
+    }
+
+    @Override
+    public List<RoleEntity> queryAllRole() {
+        return BeanUtil.doToEntityBatch(this.list(Wrappers.<Role>lambdaQuery()
+                .eq(Role::getStatus, CommonStatusEnum.USED.getCode())), RoleEntity.class);
     }
 }

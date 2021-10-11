@@ -21,4 +21,6 @@ public interface AdminService extends IService<Admin> {
     Admin queryAdminByUsername(String username);
 
     Admin queryAdminByUsernameAndNeId(String username, Long id);
+
+    void changePassword(Long adminId, String encode);
 }

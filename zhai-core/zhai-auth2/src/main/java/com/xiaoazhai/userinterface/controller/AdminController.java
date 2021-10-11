@@ -4,6 +4,7 @@ import com.xiaoazhai.auth.LoginUserHolder;
 import com.xiaoazhai.repository.AdminRepository;
 import com.xiaoazhai.result.ReturnMessage;
 import com.xiaoazhai.userinterface.request.AdminRequest;
+import com.xiaoazhai.userinterface.request.ChangePasswordRequest;
 import com.xiaoazhai.userinterface.request.DistributionAdminRoleRequest;
 import com.xiaoazhai.userinterface.request.QueryAdminRequest;
 import org.springframework.web.bind.annotation.*;
@@ -30,13 +31,13 @@ public class AdminController {
     }
 
     @PostMapping("save")
-    public ReturnMessage saveAdmin(AdminRequest adminRequest) {
+    public ReturnMessage saveAdmin(@RequestBody AdminRequest adminRequest) {
         adminRepository.saveAdmin(adminRequest.generateEntity());
         return ReturnMessage.success();
     }
 
     @PostMapping("update")
-    public ReturnMessage updateAdmin(AdminRequest request) {
+    public ReturnMessage updateAdmin(@RequestBody AdminRequest request) {
         adminRepository.updateAdminById(request.generateEntity());
         return ReturnMessage.success();
     }
@@ -46,14 +47,14 @@ public class AdminController {
         return ReturnMessage.success(adminRepository.queryAdminById(id));
     }
 
-    @PostMapping("delete")
+    @PostMapping("remove")
     public ReturnMessage deleteAdminById(Long id) {
         adminRepository.deleteAdminById(id);
         return ReturnMessage.success();
     }
 
     @PostMapping("description-role")
-    public ReturnMessage distributionAdminRole(DistributionAdminRoleRequest request) {
+    public ReturnMessage distributionAdminRole(@RequestBody DistributionAdminRoleRequest request) {
         adminRepository.distributionAdminRole(request.getAdminId(), request.generateAdminRoleEntity());
         return ReturnMessage.success();
     }
@@ -69,4 +70,9 @@ public class AdminController {
     }
 
 
+    @PostMapping("change-admin-password")
+    public ReturnMessage changeAdminPassword(@RequestBody ChangePasswordRequest request) {
+        adminRepository.changePassword(request.getAdminId(), request.getPassword());
+        return ReturnMessage.success();
+    }
 }

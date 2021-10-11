@@ -18,7 +18,7 @@ import java.util.List;
  */
 public interface MenuService extends IService<Menu> {
 
-    IPage<MenuEntity> queryMenuPage(Page page, String name);
+    IPage<MenuEntity> queryMenuPage(Page page, Long parentId, String name);
 
     void saveMenu(Menu generateDO);
 
@@ -29,4 +29,7 @@ public interface MenuService extends IService<Menu> {
     void removeMenuById(Long id);
 
     List<MenuEntity> queryMenuListByIds(List<Long> ids);
+
+    List<MenuEntity> queryMenuListByParentId(Long baseParentMenuId);
+
 }

@@ -79,4 +79,8 @@ public class AdminRepository {
         }
         return adminEntity;
     }
+
+    public void changePassword(Long adminId, String password) {
+        adminService.changePassword(adminId, passwordEncoder.encode(password));
+    }
 }

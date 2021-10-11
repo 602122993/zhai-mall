@@ -24,6 +24,7 @@ public class PermissionEntity implements BaseEntity<Permission> {
 
     private Date createdTime;
 
+    private String categoryName;
     private Date updatedTime;
 
     @Override

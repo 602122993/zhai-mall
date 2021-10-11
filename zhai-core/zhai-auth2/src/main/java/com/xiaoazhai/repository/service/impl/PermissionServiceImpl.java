@@ -10,6 +10,7 @@ import com.xiaoazhai.repository.mapper.PermissionMapper;
 import com.xiaoazhai.repository.service.PermissionService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xiaoazhai.util.BeanUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
     @Override
     public IPage<Permission> queryPermissionPage(Page page, String name) {
         return this.page(page, Wrappers.<Permission>lambdaQuery()
-                .like(Permission::getName, name));
+                .like(StringUtils.isNotEmpty(name),Permission::getName, name));
     }
 
     @Override

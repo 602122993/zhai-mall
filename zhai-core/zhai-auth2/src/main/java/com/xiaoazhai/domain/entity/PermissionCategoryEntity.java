@@ -22,6 +22,8 @@ public class PermissionCategoryEntity implements BaseEntity<PermissionCategory> 
 
     private List<PermissionEntity> permissionEntityList;
 
+    private String createdTime;
+
     public void formatPermissionList(List<PermissionEntity> list) {
         permissionEntityList = list.stream()
                 .filter(permissionEntity -> Objects.equals(permissionEntity.getCategoryId(), id))

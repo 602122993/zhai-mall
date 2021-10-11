@@ -9,6 +9,7 @@ import com.xiaoazhai.repository.mapper.AdminMapper;
 import com.xiaoazhai.repository.service.AdminService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xiaoazhai.util.BeanUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 /**
@@ -24,7 +25,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
 
     @Override
     public IPage<AdminEntity> queryAdminList(Page page, String name) {
-        return BeanUtil.copyPage(this.page(page, Wrappers.<Admin>lambdaQuery().like(Admin::getName, name)), AdminEntity.class);
+        return BeanUtil.copyPage(this.page(page, Wrappers.<Admin>lambdaQuery().like(StringUtils.isNotEmpty(name), Admin::getName, name)), AdminEntity.class);
     }
 
     @Override
@@ -38,5 +39,12 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         return this.getOne(Wrappers.<Admin>lambdaQuery()
                 .ne(Admin::getId, id)
                 .eq(Admin::getUsername, username));
+    }
+
+    @Override
+    public void changePassword(Long adminId, String password) {
+        this.update(Wrappers.<Admin>lambdaUpdate()
+                .eq(Admin::getId, adminId)
+                .set(Admin::getPassword, password));
     }
 }

@@ -37,8 +37,8 @@ public class MenuRepository {
     @Resource
     private RoleMenuService roleMenuService;
 
-    public IPage<MenuEntity> queryMenuPage(Page page, String name) {
-        return menuService.queryMenuPage(page, name);
+    public IPage<MenuEntity> queryMenuPage(Page page, Long parentId, String name) {
+        return menuService.queryMenuPage(page,parentId, name);
     }
 
     public void saveMenu(MenuEntity menuEntity) {
@@ -100,4 +100,10 @@ public class MenuRepository {
     public List<Long> queryMenuIdListByRoleId(String roleId) {
         return roleMenuService.queryMenuIdListByRoleId(roleId);
     }
+
+
+    public List<MenuEntity> queryRootMenuList() {
+       return menuService.queryMenuListByParentId(BASE_PARENT_MENU_ID);
+    }
+
 }

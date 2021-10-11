@@ -17,4 +17,8 @@ import java.util.List;
 public interface PermissionCategoryService extends IService<PermissionCategory> {
 
     List<PermissionCategoryEntity> queryList();
+
+    void savePermissionCategory(PermissionCategoryEntity permissionCategoryEntity);
+
+    void updatePermissionCategory(PermissionCategoryEntity generalEntity);
 }

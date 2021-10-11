@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiaoazhai.domain.entity.PermissionCategoryEntity;
 import com.xiaoazhai.domain.entity.PermissionEntity;
+import com.xiaoazhai.handler.FillFieldHandler;
 import com.xiaoazhai.repository.entity.PermissionCategory;
 import com.xiaoazhai.repository.service.PermissionCategoryService;
 import com.xiaoazhai.repository.service.PermissionService;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author jiangyun
@@ -23,6 +25,9 @@ public class PermissionRepository {
 
     @Resource
     private PermissionService permissionService;
+
+    @Resource
+    private FillFieldHandler fillFieldHandler;
     @Resource
     private RolePermissionService rolePermissionService;
 
@@ -30,7 +35,9 @@ public class PermissionRepository {
     private PermissionCategoryService permissionCategoryService;
 
     public IPage<PermissionEntity> queryPermissionPage(Page page, String name) {
-        return BeanUtil.copyPage(permissionService.queryPermissionPage(page, name), PermissionEntity.class);
+        IPage<PermissionEntity> result = BeanUtil.copyPage(permissionService.queryPermissionPage(page, name), PermissionEntity.class);
+        fillFieldHandler.fillPermissionCategoryName(PermissionEntity::getCategoryId, PermissionEntity::setCategoryName, result.getRecords());
+        return result;
     }
 
     public void savePermission(PermissionEntity generateEntity) {
@@ -60,5 +67,21 @@ public class PermissionRepository {
             permissionCategoryEntity.formatPermissionList(permissionEntityList);
         });
         return permissionCategoryList;
+    }
+
+    public List<PermissionCategoryEntity> queryPermissionCategoryList() {
+        return permissionCategoryService.queryList();
+    }
+
+    public void savePermissionCategory(PermissionCategoryEntity permissionCategoryEntity) {
+        permissionCategoryService.savePermissionCategory(permissionCategoryEntity);
+    }
+
+    public void updatePermissionCategoryById(PermissionCategoryEntity generalEntity) {
+        permissionCategoryService.updatePermissionCategory(generalEntity);
+    }
+
+    public void removePermissionCategoryById(Long id) {
+        permissionCategoryService.removeById(id);
     }
 }

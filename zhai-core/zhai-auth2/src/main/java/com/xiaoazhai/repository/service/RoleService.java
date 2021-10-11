@@ -33,4 +33,6 @@ public interface RoleService extends IService<Role> {
     RoleEntity queryRoleByCode(String code);
 
     RoleEntity queryRoleByCodeAndId(String code, Long id);
+
+    List<RoleEntity> queryAllRole();
 }

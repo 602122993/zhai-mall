@@ -106,4 +106,8 @@ public class RoleRepository {
         }
         return roleService.queryListByIds(roleIdList);
     }
+
+    public List<RoleEntity> queryAllRole() {
+        return roleService.queryAllRole();
+    }
 }

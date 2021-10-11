@@ -36,6 +36,8 @@ public class AdminEntity implements BaseEntity<Admin> {
 
     private Date lastLoginTime;
 
+    private Date createdTime;
+
     private List<MenuEntity> menuList;
 
     private List<RoleEntity> roleEntityList;

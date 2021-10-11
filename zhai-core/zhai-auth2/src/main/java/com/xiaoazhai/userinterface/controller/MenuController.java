@@ -1,5 +1,8 @@
 package com.xiaoazhai.userinterface.controller;
 
+import com.xiaoazhai.annotation.LoginUser;
+import com.xiaoazhai.auth.LoginUserHolder;
+import com.xiaoazhai.auth.UserDTO;
 import com.xiaoazhai.repository.MenuRepository;
 import com.xiaoazhai.result.ReturnMessage;
 import com.xiaoazhai.userinterface.request.MenuRequest;
@@ -19,13 +22,14 @@ public class MenuController {
     @Resource
     private MenuRepository menuRepository;
 
+
     @GetMapping("list")
     public ReturnMessage queryMenuList(QueryMenuRequest request) {
-        return ReturnMessage.success(menuRepository.queryMenuPage(request.getPage(), request.getName()));
+        return ReturnMessage.success(menuRepository.queryMenuPage(request.getPage(), request.getParentId(), request.getName()));
     }
 
     @PostMapping("save")
-    public ReturnMessage saveMenu(MenuRequest menuRequest) {
+    public ReturnMessage saveMenu(@RequestBody MenuRequest menuRequest) {
         menuRepository.saveMenu(menuRequest.generateEntity());
         return ReturnMessage.success();
     }
@@ -36,7 +40,7 @@ public class MenuController {
     }
 
     @PostMapping("update")
-    public ReturnMessage updateMenu(MenuRequest menuRequest) {
+    public ReturnMessage updateMenu(@RequestBody MenuRequest menuRequest) {
         menuRepository.updateMenu(menuRequest.generateEntity());
         return ReturnMessage.success();
     }
@@ -56,5 +60,16 @@ public class MenuController {
     public ReturnMessage queryByRoleId(String roleId) {
         return ReturnMessage.success(menuRepository.queryMenuIdListByRoleId(roleId));
     }
+
+    @GetMapping("query-root-menu")
+    public ReturnMessage queryAllMenuNoPage() {
+        return ReturnMessage.success(menuRepository.queryRootMenuList());
+    }
+
+    @GetMapping("query-admin-menu-list")
+    public ReturnMessage queryAdminMenuList(@LoginUser UserDTO userDTO) {
+        return ReturnMessage.success(menuRepository.queryByAdminId(userDTO.getId()));
+    }
+
 
 }

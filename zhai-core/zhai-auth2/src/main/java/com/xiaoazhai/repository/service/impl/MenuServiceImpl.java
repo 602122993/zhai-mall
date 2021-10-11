@@ -26,8 +26,9 @@ import java.util.List;
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements MenuService {
 
     @Override
-    public IPage<MenuEntity> queryMenuPage(Page page, String name) {
+    public IPage<MenuEntity> queryMenuPage(Page page, Long parentId, String name) {
         return BeanUtil.copyPage(this.page(page, Wrappers.<Menu>lambdaQuery()
+                .eq(Menu::getParentId,parentId)
                 .orderByAsc(Menu::getSort)
                 .like(StringUtils.isNotEmpty(name), Menu::getName, name)), MenuEntity.class);
     }
@@ -56,4 +57,13 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     public List<MenuEntity> queryMenuListByIds(List<Long> ids) {
         return BeanUtil.doToEntityBatch(this.listByIds(ids), MenuEntity.class);
     }
+
+
+    @Override
+    public List<MenuEntity> queryMenuListByParentId(Long baseParentMenuId) {
+        return BeanUtil.doToEntityBatch(this.list(Wrappers.<Menu>lambdaQuery()
+                .eq(Menu::getParentId, baseParentMenuId)), MenuEntity.class);
+    }
+
+
 }
