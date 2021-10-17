@@ -35,7 +35,7 @@ public class PermissionRepository {
     private PermissionCategoryService permissionCategoryService;
 
     public IPage<PermissionEntity> queryPermissionPage(Page page, String name) {
-        IPage<PermissionEntity> result = BeanUtil.copyPage(permissionService.queryPermissionPage(page, name), PermissionEntity.class);
+        IPage<PermissionEntity> result = BeanUtil.copyPage(permissionService.queryPermissionPage(page, name) );
         fillFieldHandler.fillPermissionCategoryName(PermissionEntity::getCategoryId, PermissionEntity::setCategoryName, result.getRecords());
         return result;
     }
@@ -49,7 +49,7 @@ public class PermissionRepository {
     }
 
     public PermissionEntity queryPermissionById(Long id) {
-        return BeanUtil.doToEntity(permissionService.queryPermissionById(id), PermissionEntity.class);
+        return BeanUtil.doToEntity(permissionService.queryPermissionById(id) );
     }
 
     public void deleteById(Long id) {

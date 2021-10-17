@@ -46,7 +46,7 @@ public class MenuRepository {
     }
 
     public MenuEntity queryMenuById(Long id) {
-        return BeanUtil.doToEntity(menuService.queryMenuById(id), MenuEntity.class);
+        return BeanUtil.doToEntity(menuService.queryMenuById(id));
     }
 
     public void updateMenu(MenuEntity menuEntity) {
@@ -58,7 +58,7 @@ public class MenuRepository {
     }
 
     public List<MenuEntity> queryTreeMenu() {
-        List<MenuEntity> allMenuList = BeanUtil.doToEntityBatch(menuService.list(), MenuEntity.class);
+        List<MenuEntity> allMenuList = BeanUtil.doToEntityBatch(menuService.list() );
         Map<Long, List<MenuEntity>> menuMapByParentId = allMenuList.stream()
                 .collect(Collectors.groupingBy(MenuEntity::getParentId));
         List<MenuEntity> resultList = menuMapByParentId.get(BASE_PARENT_MENU_ID);

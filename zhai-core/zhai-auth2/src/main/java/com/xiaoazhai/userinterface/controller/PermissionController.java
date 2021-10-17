@@ -67,14 +67,14 @@ public class PermissionController {
 
     @PostMapping("permission-category/create")
     public ReturnMessage createPermissionCategory(@RequestBody PermissionCategoryRequest permissionCategoryRequest) {
-        permissionRepository.savePermissionCategory(permissionCategoryRequest.generalEntity());
+        permissionRepository.savePermissionCategory(permissionCategoryRequest.generateEntity());
         return ReturnMessage.success();
     }
 
 
     @PostMapping("permission-category/update")
     public ReturnMessage updatePermissionCategory(@RequestBody PermissionCategoryRequest permissionCategoryRequest) {
-        permissionRepository.updatePermissionCategoryById(permissionCategoryRequest.generalEntity());
+        permissionRepository.updatePermissionCategoryById(permissionCategoryRequest.generateEntity());
         return ReturnMessage.success();
     }
 

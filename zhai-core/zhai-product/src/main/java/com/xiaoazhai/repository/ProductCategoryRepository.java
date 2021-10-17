@@ -9,6 +9,7 @@ import com.xiaoazhai.userinterface.request.QueryProductCategoryForm;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author jiangyun
@@ -22,13 +23,20 @@ public class ProductCategoryRepository {
     private ProductCategoryService productCategoryService;
 
 
-    public void saveProductCategory(ProductCategoryEntity  generateEntity) {
-        productCategoryService.save( generateEntity. generateDO());
+    public void saveProductCategory(ProductCategoryEntity generateEntity) {
+        productCategoryService.save(generateEntity.generateDO());
     }
 
-    public IPage<ProductCategory> queryProductCategory(Page<ProductCategory> page, String id) {
+    public IPage<ProductCategoryEntity> queryProductCategory(Page<ProductCategory> page, String id) {
         return productCategoryService.listByParentId(page, id);
     }
 
 
+    public List<ProductCategoryEntity> queryParentProductCategoryList() {
+        return productCategoryService.queryParentProductCategoryList();
+    }
+
+    public ProductCategoryEntity queryById(Long id) {
+        return productCategoryService.queryById(id);
+    }
 }

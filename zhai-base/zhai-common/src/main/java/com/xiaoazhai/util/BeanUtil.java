@@ -25,7 +25,6 @@ public class BeanUtil extends cn.hutool.core.bean.BeanUtil {
      * 忽略空值 泛型
      *
      * @param source
-     * @param target
      */
     @SneakyThrows
     public static <T> T copyPropertiesIgnoreNullValue(Object source, Class<T> calzz) {
@@ -75,27 +74,27 @@ public class BeanUtil extends cn.hutool.core.bean.BeanUtil {
     }
 
 
-    public static <T> IPage copyPage(IPage<? extends BaseDO> page, Class<T> clazz) {
-        return page.convert(obj -> obj.generateEntity(clazz));
+    public static <T> IPage copyPage(IPage<? extends BaseDO> page ) {
+        return page.convert(BaseDO::generateEntity);
     }
 
-    public static <T> T doToEntity(BaseDO<T> baseDO, Class<T> clazz) {
+    public static <T> T doToEntity(BaseDO<T> baseDO) {
         if (baseDO == null) {
             return null;
         }
-        return baseDO.generateEntity(clazz);
+        return baseDO.generateEntity();
     }
 
 
-    public static <T> List<T> entityToDOBatch(List<? extends BaseEntity<T>> entityList, Class<T> clazz) {
+    public static <T> List<T> entityToDOBatch(List<? extends BaseEntity<T>> entityList ) {
         return entityList.stream()
-                .map(entity -> entity.generateDO(clazz))
+                .map(BaseEntity::generateDO)
                 .collect(Collectors.toList());
     }
 
-    public static <T> List<T> doToEntityBatch(List<? extends BaseDO<T>> doList, Class<T> clazz) {
+    public static <T> List<T> doToEntityBatch(List<? extends BaseDO<T>> doList ) {
         return doList.stream()
-                .map(obj -> obj.generateEntity(clazz))
+                .map(BaseDO::generateEntity)
                 .collect(Collectors.toList());
     }
 }

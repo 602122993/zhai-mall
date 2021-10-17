@@ -42,7 +42,7 @@ public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenu> i
     @Override
     public List<RoleMenuEntity> queryListByRoleIdList(List<Long> roleIdList) {
         return BeanUtil.doToEntityBatch(this.list(Wrappers.<RoleMenu>lambdaQuery()
-                .in(RoleMenu::getRoleId, roleIdList)), RoleMenuEntity.class);
+                .in(RoleMenu::getRoleId, roleIdList)) );
     }
 
     @Override

@@ -30,7 +30,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         return BeanUtil.copyPage(this.page(page, Wrappers.<Menu>lambdaQuery()
                 .eq(Menu::getParentId,parentId)
                 .orderByAsc(Menu::getSort)
-                .like(StringUtils.isNotEmpty(name), Menu::getName, name)), MenuEntity.class);
+                .like(StringUtils.isNotEmpty(name), Menu::getName, name)) );
     }
 
     @Override
@@ -55,14 +55,14 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     @Override
     public List<MenuEntity> queryMenuListByIds(List<Long> ids) {
-        return BeanUtil.doToEntityBatch(this.listByIds(ids), MenuEntity.class);
+        return BeanUtil.doToEntityBatch(this.listByIds(ids) );
     }
 
 
     @Override
     public List<MenuEntity> queryMenuListByParentId(Long baseParentMenuId) {
         return BeanUtil.doToEntityBatch(this.list(Wrappers.<Menu>lambdaQuery()
-                .eq(Menu::getParentId, baseParentMenuId)), MenuEntity.class);
+                .eq(Menu::getParentId, baseParentMenuId)) );
     }
 
 

@@ -22,7 +22,7 @@ public class ProductCategoryController {
 
     @PostMapping("save")
     public ReturnMessage saveProductCategory(@RequestBody AddProductCategoryRequest request) {
-        productCategoryRepository.saveProductCategory(request. generateEntity());
+        productCategoryRepository.saveProductCategory(request.generateEntity());
         return ReturnMessage.success();
     }
 
@@ -30,5 +30,16 @@ public class ProductCategoryController {
     @GetMapping("list")
     public ReturnMessage getProductCategory(QueryProductCategoryForm queryProductCategoryForm) {
         return ReturnMessage.success(productCategoryRepository.queryProductCategory(queryProductCategoryForm.getPage(), queryProductCategoryForm.getId()));
+    }
+
+
+    @GetMapping("/parent-list")
+    public ReturnMessage queryParentProductList() {
+        return ReturnMessage.success(productCategoryRepository.queryParentProductCategoryList());
+    }
+
+    @GetMapping("query-by-id")
+    public ReturnMessage queryById(Long id) {
+        return ReturnMessage.success(productCategoryRepository.queryById(id));
     }
 }

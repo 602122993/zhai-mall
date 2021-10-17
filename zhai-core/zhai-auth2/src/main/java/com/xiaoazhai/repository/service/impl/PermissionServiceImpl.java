@@ -54,12 +54,12 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
         if (CollectionUtil.isEmpty(permissionIdList)) {
             return new ArrayList<>();
         }
-        return BeanUtil.doToEntityBatch(this.listByIds(permissionIdList), PermissionEntity.class);
+        return BeanUtil.doToEntityBatch(this.listByIds(permissionIdList) );
     }
 
     @Override
     public List<PermissionEntity> queryAllPermission() {
-        return BeanUtil.doToEntityBatch(this.list(), PermissionEntity.class);
+        return BeanUtil.doToEntityBatch(this.list() );
     }
 
 }

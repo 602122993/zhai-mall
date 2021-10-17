@@ -75,7 +75,7 @@ public class RoleRepository {
     public void distributionMenu(Long roleId, List<RoleMenuEntity> roleMenuEntityList) {
         roleMenuService.removeByRoleId(roleId);
         if (CollectionUtil.isNotEmpty(roleMenuEntityList)) {
-            roleMenuService.saveBatch(BeanUtil.entityToDOBatch(roleMenuEntityList, RoleMenu.class));
+            roleMenuService.saveBatch(BeanUtil.entityToDOBatch(roleMenuEntityList ));
         }
     }
 
@@ -83,7 +83,7 @@ public class RoleRepository {
     public void distributionPermission(Long roleId, List<RolePermissionEntity> rolePermissionEntityList) {
         rolePermissionService.removeByRoleId(roleId);
         if (CollectionUtil.isNotEmpty(rolePermissionEntityList)) {
-            rolePermissionService.saveBatch(BeanUtil.entityToDOBatch(rolePermissionEntityList, RolePermission.class));
+            rolePermissionService.saveBatch(BeanUtil.entityToDOBatch(rolePermissionEntityList ));
         }
     }
 
@@ -96,7 +96,7 @@ public class RoleRepository {
             return new ArrayList<>();
         }
         List<Role> roleList = roleService.listByIds(roleIdList);
-        return BeanUtil.doToEntityBatch(roleList, RoleEntity.class);
+        return BeanUtil.doToEntityBatch(roleList);
     }
 
     public List<RoleEntity> queryAllRoleListByMenuId(Long id) {

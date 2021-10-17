@@ -4,7 +4,11 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
+
 import java.io.Serializable;
+
+import com.xiaoazhai.domain.entity.ProductCategoryEntity;
+import com.xiaoazhai.entity.BaseDO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -19,9 +23,9 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("zhai_product_category")
-public class ProductCategory implements Serializable {
+public class ProductCategory implements Serializable, BaseDO<ProductCategoryEntity> {
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
@@ -78,4 +82,8 @@ public class ProductCategory implements Serializable {
     private String description;
 
 
+    @Override
+    public ProductCategoryEntity generateEntity() {
+        return generateEntity(ProductCategoryEntity.class);
+    }
 }

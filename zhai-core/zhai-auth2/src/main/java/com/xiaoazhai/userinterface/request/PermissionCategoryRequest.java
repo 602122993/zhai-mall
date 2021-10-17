@@ -16,7 +16,7 @@ public class PermissionCategoryRequest {
     private String name;
 
 
-    public PermissionCategoryEntity generalEntity() {
+    public PermissionCategoryEntity generateEntity() {
         return BeanUtil.copyPropertiesIgnoreNullValue(this, PermissionCategoryEntity.class);
     }
 }

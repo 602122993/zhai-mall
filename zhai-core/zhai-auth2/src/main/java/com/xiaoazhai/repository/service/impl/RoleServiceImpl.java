@@ -30,7 +30,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     public IPage<RoleEntity> queryRolePage(Page page, String name) {
         return BeanUtil.copyPage(this.page(page, Wrappers.<Role>lambdaQuery()
                 .orderByDesc(Role::getId)
-                .like(StringUtils.isNotEmpty(name), Role::getName, name)), RoleEntity.class);
+                .like(StringUtils.isNotEmpty(name), Role::getName, name)) );
     }
 
     @Override
@@ -50,30 +50,30 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
 
     @Override
     public RoleEntity queryRoleById(Long id) {
-        return BeanUtil.doToEntity(this.getById(id), RoleEntity.class);
+        return BeanUtil.doToEntity(this.getById(id) );
     }
 
     @Override
     public List<RoleEntity> queryListByIds(List<Long> roleIdList) {
-        return BeanUtil.doToEntityBatch(this.listByIds(roleIdList), RoleEntity.class);
+        return BeanUtil.doToEntityBatch(this.listByIds(roleIdList) );
     }
 
     @Override
     public RoleEntity queryRoleByCode(String code) {
         return BeanUtil.doToEntity(this.getOne(Wrappers.<Role>lambdaQuery()
-                .eq(Role::getCode, code)), RoleEntity.class);
+                .eq(Role::getCode, code)));
     }
 
     @Override
     public RoleEntity queryRoleByCodeAndId(String code, Long id) {
         return BeanUtil.doToEntity(this.getOne(Wrappers.<Role>lambdaQuery()
                 .eq(Role::getCode, code)
-                .ne(id != null, Role::getId, id)), RoleEntity.class);
+                .ne(id != null, Role::getId, id)) );
     }
 
     @Override
     public List<RoleEntity> queryAllRole() {
         return BeanUtil.doToEntityBatch(this.list(Wrappers.<Role>lambdaQuery()
-                .eq(Role::getStatus, CommonStatusEnum.USED.getCode())), RoleEntity.class);
+                .eq(Role::getStatus, CommonStatusEnum.USED.getCode())) );
     }
 }

@@ -2,8 +2,11 @@ package com.xiaoazhai.repository.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.xiaoazhai.domain.entity.ProductCategoryEntity;
 import com.xiaoazhai.repository.entity.ProductCategory;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -15,5 +18,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ProductCategoryService extends IService<ProductCategory> {
 
-    IPage<ProductCategory> listByParentId(Page<ProductCategory> page, String id);
+    IPage<ProductCategoryEntity> listByParentId(Page<ProductCategory> page, String id);
+
+    List<ProductCategoryEntity> queryParentProductCategoryList();
+
+    ProductCategoryEntity queryById(Long id);
 }

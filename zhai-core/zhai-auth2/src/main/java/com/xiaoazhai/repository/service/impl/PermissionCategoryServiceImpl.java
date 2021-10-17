@@ -23,7 +23,7 @@ public class PermissionCategoryServiceImpl extends ServiceImpl<PermissionCategor
 
     @Override
     public List<PermissionCategoryEntity> queryList() {
-        return BeanUtil.doToEntityBatch(this.list(), PermissionCategoryEntity.class);
+        return BeanUtil.doToEntityBatch(this.list() );
     }
 
     @Override

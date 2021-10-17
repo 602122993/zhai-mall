@@ -56,7 +56,7 @@ public class AdminRepository {
     }
 
     public AdminEntity queryAdminById(Long id) {
-        return BeanUtil.doToEntity(adminService.getById(id), AdminEntity.class);
+        return BeanUtil.doToEntity(adminService.getById(id) );
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -68,11 +68,11 @@ public class AdminRepository {
     @Transactional(rollbackFor = Exception.class)
     public void distributionAdminRole(Long adminId, List<AdminRoleEntity> adminRoleEntityList) {
         adminRoleService.removeByAdminId(adminId);
-        adminRoleService.saveBatch(BeanUtil.entityToDOBatch(adminRoleEntityList, AdminRole.class));
+        adminRoleService.saveBatch(BeanUtil.entityToDOBatch(adminRoleEntityList));
     }
 
     public AdminEntity queryAdminByUsername(String username) {
-        AdminEntity adminEntity = BeanUtil.doToEntity(adminService.queryAdminByUsername(username), AdminEntity.class);
+        AdminEntity adminEntity = BeanUtil.doToEntity(adminService.queryAdminByUsername(username) );
         if (adminEntity != null) {
             adminEntity.setMenuList(menuRepository.queryByAdminId(adminEntity.getId()));
             adminEntity.setRoleEntityList(roleRepository.queryByAdminId(adminEntity.getId()));
