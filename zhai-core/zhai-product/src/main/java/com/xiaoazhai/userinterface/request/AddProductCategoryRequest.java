@@ -65,9 +65,6 @@ public class AddProductCategoryRequest {
     private List<Long> attributeIdList;
 
     public ProductCategoryEntity  generateEntity() {
-        ProductCategoryEntity result = BeanUtil.copyPropertiesIgnoreNullValue(this, ProductCategoryEntity.class);
-        result.setLevel(parentId == ProductConstants.PARENT_PRODUCT_CATEGORY ? ProductCategoryLevelEnum.ONE_LEVEL.getCode() :
-                ProductCategoryLevelEnum.TWO_LEVEL.getCode());
-        return result;
+        return BeanUtil.copyPropertiesIgnoreNullValue(this, ProductCategoryEntity.class);
     }
 }

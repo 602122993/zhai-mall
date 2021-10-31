@@ -1,5 +1,6 @@
 package com.xiaoazhai.userinterface.controller;
 
+import com.xiaoazhai.domain.service.ProductCategoryDomainService;
 import com.xiaoazhai.repository.ProductCategoryRepository;
 import com.xiaoazhai.result.ReturnMessage;
 import com.xiaoazhai.userinterface.request.AddProductCategoryRequest;
@@ -22,6 +23,8 @@ public class ProductCategoryController {
 
     @Resource
     private ProductCategoryRepository productCategoryRepository;
+    @Resource
+    private ProductCategoryDomainService productCategoryDomainService;
 
 
     @PostMapping("save")
@@ -41,6 +44,12 @@ public class ProductCategoryController {
         return ReturnMessage.success(ProductCategoryResponse.generateFromEntityPage(productCategoryRepository.queryProductCategory(queryProductCategoryForm.getPage(), queryProductCategoryForm.getId())));
     }
 
+
+    @PostMapping("remove")
+    public ReturnMessage removeProductCategory(Long id) {
+        productCategoryDomainService.removeProductCategory(id);
+        return ReturnMessage.success();
+    }
 
     @GetMapping("/parent-list")
     public ReturnMessage queryParentProductList() {
@@ -64,4 +73,6 @@ public class ProductCategoryController {
                 .collect(Collectors.toList()));
         return ReturnMessage.success();
     }
+
+
 }

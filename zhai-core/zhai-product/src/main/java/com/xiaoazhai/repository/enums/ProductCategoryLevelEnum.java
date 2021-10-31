@@ -13,7 +13,8 @@ import lombok.Getter;
 public enum  ProductCategoryLevelEnum implements BaseEnum {
 
     ONE_LEVEL(0,"一级目录"),
-    TWO_LEVEL(1,"二级目录");
+    TWO_LEVEL(1,"二级目录"),
+    THREE_LEVEL(2,"三级目录");
 
 
     private int code;

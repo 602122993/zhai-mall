@@ -51,4 +51,8 @@ public class ProductCategoryRepository {
     public void updateProductCategoryList(List<ProductCategoryEntity> productCategoryEntityList) {
         productCategoryService.updateBatchById(productCategoryEntityList);
     }
+
+    public void removeProductCategory(Long id) {
+        productCategoryService.removeById(id);
+    }
 }
