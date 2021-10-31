@@ -3,7 +3,9 @@ package com.xiaoazhai.userinterface.request;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.xiaoazhai.domain.constants.ProductConstants;
 import com.xiaoazhai.domain.entity.ProductCategoryEntity;
+import com.xiaoazhai.repository.enums.ProductCategoryLevelEnum;
 import com.xiaoazhai.util.BeanUtil;
 import lombok.Data;
 
@@ -63,6 +65,9 @@ public class AddProductCategoryRequest {
     private List<Long> attributeIdList;
 
     public ProductCategoryEntity  generateEntity() {
-        return BeanUtil.copyPropertiesIgnoreNullValue(this, ProductCategoryEntity.class);
+        ProductCategoryEntity result = BeanUtil.copyPropertiesIgnoreNullValue(this, ProductCategoryEntity.class);
+        result.setLevel(parentId == ProductConstants.PARENT_PRODUCT_CATEGORY ? ProductCategoryLevelEnum.ONE_LEVEL.getCode() :
+                ProductCategoryLevelEnum.TWO_LEVEL.getCode());
+        return result;
     }
 }

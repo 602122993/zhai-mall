@@ -39,4 +39,16 @@ public class ProductCategoryRepository {
     public ProductCategoryEntity queryById(Long id) {
         return productCategoryService.queryById(id);
     }
+
+    public void updateProductCategory(ProductCategoryEntity generateEntity) {
+        productCategoryService.updateById(generateEntity.generateDO());
+    }
+
+    public List<ProductCategoryEntity> queryAppProductCategoryList() {
+        return productCategoryService.queryAppProductCategoryList();
+    }
+
+    public void updateProductCategoryList(List<ProductCategoryEntity> productCategoryEntityList) {
+        productCategoryService.updateBatchById(productCategoryEntityList);
+    }
 }

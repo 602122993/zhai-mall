@@ -1,6 +1,7 @@
 package com.xiaoazhai.util;
 
 import cn.hutool.core.bean.copier.CopyOptions;
+import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiaoazhai.entity.BaseDO;
@@ -74,8 +75,12 @@ public class BeanUtil extends cn.hutool.core.bean.BeanUtil {
     }
 
 
-    public static <T> IPage copyPage(IPage<? extends BaseDO> page ) {
+    public static <T> IPage copyPage(IPage<? extends BaseDO> page) {
         return page.convert(BaseDO::generateEntity);
+    }
+
+    public static <T> IPage<T> copyPageEntity(IPage<? extends BaseEntity> page, Class<T> clazz) {
+        return page.convert(result -> BeanUtil.copyPropertiesIgnoreNullValue(result, clazz));
     }
 
     public static <T> T doToEntity(BaseDO<T> baseDO) {
@@ -86,15 +91,26 @@ public class BeanUtil extends cn.hutool.core.bean.BeanUtil {
     }
 
 
-    public static <T> List<T> entityToDOBatch(List<? extends BaseEntity<T>> entityList ) {
+    public static <T> List<T> entityToDOBatch(List<? extends BaseEntity<T>> entityList) {
         return entityList.stream()
                 .map(BaseEntity::generateDO)
                 .collect(Collectors.toList());
     }
 
-    public static <T> List<T> doToEntityBatch(List<? extends BaseDO<T>> doList ) {
+    public static <T> List<T> doToEntityBatch(List<? extends BaseDO<T>> doList) {
         return doList.stream()
                 .map(BaseDO::generateEntity)
                 .collect(Collectors.toList());
+    }
+
+    public static <T> List<T> copyListIgnoreNullValue(List source, Class<T> clazz) {
+        List<T> result = new ArrayList<>();
+        if (CollectionUtil.isEmpty(source)) {
+            return result;
+        }
+        source.forEach(obj -> {
+            result.add(copyPropertiesIgnoreNullValue(obj, clazz));
+        });
+        return result;
     }
 }

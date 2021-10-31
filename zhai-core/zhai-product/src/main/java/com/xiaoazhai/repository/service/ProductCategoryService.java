@@ -23,4 +23,8 @@ public interface ProductCategoryService extends IService<ProductCategory> {
     List<ProductCategoryEntity> queryParentProductCategoryList();
 
     ProductCategoryEntity queryById(Long id);
+
+    List<ProductCategoryEntity> queryAppProductCategoryList();
+
+    void updateBatchById(List<ProductCategoryEntity> productCategoryEntityList);
 }

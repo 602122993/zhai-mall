@@ -4,7 +4,9 @@ import com.xiaoazhai.entity.BaseEntity;
 import com.xiaoazhai.repository.entity.ProductCategory;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author jiangyun
@@ -58,9 +60,19 @@ public class ProductCategoryEntity implements BaseEntity<ProductCategory> {
 
     private List<Long> attributeIdList;
 
+    private List<ProductCategoryEntity> childList;
 
     @Override
-    public ProductCategory  generateDO() {
-        return  generateDO(ProductCategory.class);
+    public ProductCategory generateDO() {
+        return generateDO(ProductCategory.class);
+    }
+
+    public void fillChildList(List<ProductCategoryEntity> productCategoryEntityList) {
+        childList = new ArrayList<>();
+        productCategoryEntityList.forEach(productCategoryEntity -> {
+            if (Objects.equals(productCategoryEntity.getParentId(), this.id)) {
+                childList.add(productCategoryEntity);
+            }
+        });
     }
 }

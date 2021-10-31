@@ -4,9 +4,13 @@ import com.xiaoazhai.repository.ProductCategoryRepository;
 import com.xiaoazhai.result.ReturnMessage;
 import com.xiaoazhai.userinterface.request.AddProductCategoryRequest;
 import com.xiaoazhai.userinterface.request.QueryProductCategoryForm;
+import com.xiaoazhai.userinterface.request.UpdateProductSortRequest;
+import com.xiaoazhai.userinterface.response.ProductCategoryResponse;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author jiangyun
@@ -26,10 +30,15 @@ public class ProductCategoryController {
         return ReturnMessage.success();
     }
 
+    @PostMapping("update")
+    public ReturnMessage updateProductCategory(@RequestBody AddProductCategoryRequest request) {
+        productCategoryRepository.updateProductCategory(request.generateEntity());
+        return ReturnMessage.success();
+    }
 
     @GetMapping("list")
     public ReturnMessage getProductCategory(QueryProductCategoryForm queryProductCategoryForm) {
-        return ReturnMessage.success(productCategoryRepository.queryProductCategory(queryProductCategoryForm.getPage(), queryProductCategoryForm.getId()));
+        return ReturnMessage.success(ProductCategoryResponse.generateFromEntityPage(productCategoryRepository.queryProductCategory(queryProductCategoryForm.getPage(), queryProductCategoryForm.getId())));
     }
 
 
@@ -41,5 +50,18 @@ public class ProductCategoryController {
     @GetMapping("query-by-id")
     public ReturnMessage queryById(Long id) {
         return ReturnMessage.success(productCategoryRepository.queryById(id));
+    }
+
+    @GetMapping("app-list")
+    public ReturnMessage queryAppProductCategoryList() {
+        return ReturnMessage.success(productCategoryRepository.queryAppProductCategoryList());
+    }
+
+    @PostMapping("update-product-category-sort")
+    public ReturnMessage updateProductCategorySort(@RequestBody List<UpdateProductSortRequest> productSortRequestList) {
+        productCategoryRepository.updateProductCategoryList(productSortRequestList.stream()
+                .map(UpdateProductSortRequest::generateEntity)
+                .collect(Collectors.toList()));
+        return ReturnMessage.success();
     }
 }
