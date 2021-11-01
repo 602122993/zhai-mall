@@ -1,7 +1,10 @@
 package com.xiaoazhai.repository.service;
 
+import com.xiaoazhai.domain.entity.ProductAttributeEntity;
 import com.xiaoazhai.repository.entity.ProductAttribute;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ProductAttributeService extends IService<ProductAttribute> {
 
+    List<ProductAttributeEntity> queryListByProductCategoryId(Long productCategoryId);
 }

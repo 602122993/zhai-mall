@@ -45,7 +45,7 @@ public class MybatisPlusGenerator {
                 .setEntityTableFieldAnnotationEnable(true)
                 .setTablePrefix("zhai") //指定扫描表的前缀
 //                .setFieldPrefix(fieldPrefix);//指定字段前缀
-                .setInclude("zhai_product_attribute");
+                .setInclude("zhai_product_category_attribute_relation");
         InjectionConfig injectionConfig = new InjectionConfig() {
             @Override
             public void initMap() {

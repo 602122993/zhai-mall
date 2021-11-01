@@ -74,5 +74,10 @@ public class ProductCategoryController {
         return ReturnMessage.success();
     }
 
+    @GetMapping("product-attribute-list-by-product-category-id")
+    public ReturnMessage queryProductAttributeListByProductCategoryId(Long productCategoryId) {
+        return ReturnMessage.success( productCategoryDomainService.queryProductAttributeListByProductCategoryId(productCategoryId));
+
+    }
 
 }

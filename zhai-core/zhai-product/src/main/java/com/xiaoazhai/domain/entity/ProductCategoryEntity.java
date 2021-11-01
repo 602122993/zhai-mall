@@ -1,6 +1,7 @@
 package com.xiaoazhai.domain.entity;
 
 import com.xiaoazhai.entity.BaseEntity;
+import com.xiaoazhai.repository.entity.ProductAttribute;
 import com.xiaoazhai.repository.entity.ProductCategory;
 import lombok.Data;
 
@@ -58,7 +59,7 @@ public class ProductCategoryEntity implements BaseEntity<ProductCategory> {
      */
     private String description;
 
-    private List<Long> attributeIdList;
+    private List<ProductAttribute> attributeList;
 
     private List<ProductCategoryEntity> childList;
 
